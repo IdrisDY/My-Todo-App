@@ -1,15 +1,15 @@
 import { IconButton, IconButtonProps } from "@chakra-ui/react";
 import React from "react";
 
+type CustomIconButtonProps = IconButtonProps & {
+  isRound?: boolean;
+};
+
 const CustomIconButton = ({
   children,
   isRound = false,
   ...props
-}: {
-  children: React.ReactNode;
-  isRound: boolean;
-  props: IconButtonProps;
-}) => {
+}: CustomIconButtonProps) => {
   return (
     <IconButton
       border={"brand.50"}

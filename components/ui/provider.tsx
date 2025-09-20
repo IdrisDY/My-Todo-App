@@ -8,6 +8,7 @@ import {
   defaultConfig,
 } from "@chakra-ui/react";
 import { ColorModeProvider, type ColorModeProviderProps } from "./color-mode";
+import { jakartaSans } from "@/app/layout";
 
 export function Provider({ children }: { children: React.ReactNode }) {
   const colors = {
@@ -49,7 +50,11 @@ export function Provider({ children }: { children: React.ReactNode }) {
           primary: { value: "#75C5C1" },
           secondary: { value: "#41245F" },
           cream: { value: "#F7F7F7" },
-          gray: { value: "#464B50" },
+          gray: {
+            200: { value: "#E9F5F7" },
+            400: { value: "#7988A9" },
+            800: { value: "#464B50" },
+          },
 
           brand: {
             50: { value: "#EEF1F9" },
@@ -63,6 +68,10 @@ export function Provider({ children }: { children: React.ReactNode }) {
             800: { value: "#002651" },
             900: { value: "#000c21" },
           },
+        },
+        fonts: {
+          heading: { value: jakartaSans.style.fontFamily },
+          body: { value: jakartaSans.style.fontFamily },
         },
         radii: {
           sm: { value: "10px" },
