@@ -1,6 +1,6 @@
 "use client";
 
-import { Container, Box, IconButton, Drawer } from "@chakra-ui/react";
+import { Container, Box, IconButton, Drawer, VStack } from "@chakra-ui/react";
 import {
   Call,
   Category,
@@ -66,17 +66,19 @@ const Sidebar = () => {
   return (
     <>
       {/* Sidebar - desktop */}
-      <Container
+      <Box
+        as={"nav"}
+        aria-label="sidebar"
         display={{ base: "none", md: "block" }}
         paddingInline={"30px"}
-        w={["40%", "20%"]}
         h={"100vh"}
+        w={"100%"}
         overflowY={"auto"}
-        position="fixed"
+        position="absolute"
         left={0}
         top={"0"}
         borderRight="1px solid"
-        borderColor="gray.200"
+        borderColor="gray.300"
       >
         {/* Logo and Right Button */}
         <Box
@@ -112,16 +114,18 @@ const Sidebar = () => {
             </div>
           </CustomIconButton>
         </Box>
-        <Box display="flex" flexDirection="column" gap="8px">
+        <VStack
+          as={"ul"}
+          display="flex"
+          alignItems={"start"}
+          flexDirection="column"
+          gap="8px"
+        >
           {menuItems.map((item) => (
-            <MenuItem
-              iconColor="#7988A9"
-              key={item.text}
-              item={item}
-            />
+            <MenuItem key={item.text} item={item} />
           ))}
-        </Box>
-      </Container>
+        </VStack>
+      </Box>
 
       {/* Drawer -mobile */}
       <Drawer.Root placement="start">

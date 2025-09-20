@@ -52,6 +52,7 @@ export function Provider({ children }: { children: React.ReactNode }) {
           cream: { value: "#F7F7F7" },
           gray: {
             200: { value: "#E9F5F7" },
+            300: { value: "#CDD6E9" },
             400: { value: "#7988A9" },
             800: { value: "#464B50" },
           },

@@ -7,19 +7,15 @@ import { ArrowDown2 } from "iconsax-reactjs";
 
 const MenuItem = ({ item }: { item: CustomMenuItemProps }) => {
   const [isOpen, setIsOpen] = useState(false);
-
+  // change icon to light gray
   const coloredIcon = React.isValidElement(item.icon)
-    ? React.cloneElement(item.icon, {
-        color: item.iconColor,
-        width: "18px",
-        height: "18px",
-      })
+    ? React.cloneElement(item.icon)
     : item.icon;
 
   const hasSubItems = item.subItems && item.subItems.length > 0;
 
   return (
-    <Box>
+    <Box as={"li"}>
       {/* Main menu item */}
       <Box
         as="button"
@@ -36,9 +32,12 @@ const MenuItem = ({ item }: { item: CustomMenuItemProps }) => {
           bg: "gray.200",
           transition: "all 0.3s ease-in-out",
         }}
+        role="group"
       >
         <Box display="flex" alignItems="center" gap="14px">
-          {coloredIcon}
+          <Text color={"gray.400"} _groupHover={{ color: "primary" }}>
+            {coloredIcon}
+          </Text>
           <Text textAlign={"left"} fontWeight={600}>
             {item.text}
           </Text>

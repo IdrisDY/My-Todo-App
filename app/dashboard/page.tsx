@@ -3,7 +3,7 @@ import { Container } from "@chakra-ui/react";
 import React from "react";
 
 const Dashboard = () => {
-  return <Container color={"base"}>This is the Dashboard Page! </Container>;
+  return <Container color={"base"}> fdjndjks d</Container>;
 };
 
 export default Dashboard;
