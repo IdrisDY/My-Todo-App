@@ -13,6 +13,7 @@ import SelectStatus from "../selects/select-status";
 import { useState } from "react";
 import UserSelect from "../selects/user-select";
 import SelectPriority from "../selects/priority-select";
+import CustomButton from "@/components/ui/button";
 
 export const CreateTaskDialog = ({
   triggerDialogComponent,
@@ -25,8 +26,7 @@ export const CreateTaskDialog = ({
       triggerComponent={triggerDialogComponent}
       footer={
         <>
-          <Button variant="outline">Cancel</Button>
-          <Button colorScheme="teal">Create Task</Button>
+          <CustomButton brand="p">Create Task</CustomButton>
         </>
       }
     >

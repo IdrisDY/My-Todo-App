@@ -23,7 +23,7 @@ export const CustomDialog = ({
   size = { mdDown: "full", md: "lg" },
 }: BaseDialogProps) => {
   return (
-    <Dialog.Root size={size}>
+    <Dialog.Root placement={"center"} size={size}>
       <Dialog.Trigger asChild>{triggerComponent}</Dialog.Trigger>
       <Portal>
         <Dialog.Backdrop />
