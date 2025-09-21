@@ -9,7 +9,10 @@ type PriorityProps = {
   onClick?: () => void;
 };
 
-const PriorityItem: FC<{ item: PriorityProps }> = ({ item }) => {
+const PriorityItem: FC<{ item: PriorityProps; showMoreButton?: boolean }> = ({
+  item,
+  showMoreButton = true,
+}) => {
   let resolvedColor: string;
   switch (item.text) {
     case "Important":
@@ -31,10 +34,11 @@ const PriorityItem: FC<{ item: PriorityProps }> = ({ item }) => {
         <Flag variant="Bold" color={resolvedColor} />
         <Text>{item.text}</Text>
       </HStack>
-
-      <CustomIconButton border={"none"} onClick={item.onClick}>
-        <More size={"20px"} color="black" />
-      </CustomIconButton>
+      {showMoreButton && (
+        <CustomIconButton border={"none"} onClick={item.onClick}>
+          <More size={"20px"} color="black" />
+        </CustomIconButton>
+      )}{" "}
     </Box>
   );
 };

@@ -34,50 +34,42 @@ import StatusItem from "./components/status-item";
 import { CustomTable } from "@/components/ui/table";
 import PriorityItem from "./components/priority-item";
 import AvatarCircles from "./components/avatar-circles";
+import { TodoStatus, ViewMode } from "./components/types";
+import { useTodos } from "../contexts/todoContext";
+import { CreateTaskDialog } from "./components/modals/createTodoDialog";
 
 const Dashboard = () => {
-  const statusTabs: StatusItemProps[] = [
+  const { todos } = useTodos();
+  const [todo, progress, completed] = [
+    { bg: "#CFB7E8", alt: "#F9F3FF", txt: "black" },
+    { bg: "#F6BE38", alt: "#FBF4E4", txt: "black" },
+    { bg: "#75C5C1", alt: "#E9F5F7", txt: "black" },
+  ];
+  const [activeTab, setActiveTab] = useState<TodoStatus>("todo");
+  const statusTabs: Omit<StatusItemProps, "onClick">[] = [
     {
-      icon: <TaskSquare variant="Bold" color="#CFB7E8" />,
+      icon: TaskSquare,
+      themeColor: todo,
       text: "To Do",
       count: 20,
+      value: "todo",
       color: "#F9F3FF",
     },
     {
-      icon: <Status variant="Bold" color="#F6BE38" />,
+      icon: Status,
+      themeColor: progress,
       text: "In Progress",
+      value: "progress",
       count: 20,
       color: "#FBF4E4",
     },
     {
-      icon: <TickCircle variant="Bold" color="#75C5C1" />,
+      icon: TickCircle,
+      themeColor: completed,
       text: "Complete",
+      value: "completed",
       count: 20,
       color: "#E9F5F7",
-    },
-  ];
-
-  const products = [
-    {
-      id: 1,
-      name: "MKV Intranet V2",
-      date: "04/06/2024 - 16/06/2014",
-      assignee: ["/images/user1.png", "/images/user2.png"],
-      priority: "Medium",
-    },
-    {
-      id: 2,
-      name: "Design System",
-      date: "04/06/2024 - 16/06/2014",
-      assignee: ["/images/user1.png", "/images/user2.png"],
-      priority: "Important",
-    },
-    {
-      id: 3,
-      name: "Medical Appointment",
-      date: "04/06/2024 - 16/06/2014",
-      assignee: ["/images/user1.png", "/images/user2.png"],
-      priority: "Urgent",
     },
   ];
 
@@ -104,7 +96,7 @@ const Dashboard = () => {
         row.priority ? <PriorityItem item={{ text: row.priority }} /> : null,
     },
   ];
-  const [viewMode, setViewMode] = useState("list");
+  const [viewMode, setViewMode] = useState<ViewMode>("list");
   return (
     <Container minH={"100vh"} borderRadius={"10px"} bg={"white"} color={"base"}>
       <Box
@@ -204,15 +196,22 @@ const Dashboard = () => {
         <Box bg={"cream"} padding={".7em"} borderRadius={"base"} as={"section"}>
           <HStack spaceX={".7em"}>
             {statusTabs.map((item) => (
-              <StatusItem key={item.text} item={item} />
+              <StatusItem
+                isActive={item.value === activeTab}
+                viewMode={viewMode}
+                key={item.text}
+                item={item}
+                onClick={(term) => setActiveTab(term as TodoStatus)}
+              />
             ))}
           </HStack>
         </Box>
-
         {/* Table Section */}
-        <Box as={"section"}>
-          <CustomTable columns={columns} data={products} />
-        </Box>
+        {viewMode === "list" && (
+          <Box as={"section"}>
+            <CustomTable columns={columns} data={todos} />
+          </Box>
+        )}{" "}
       </VStack>
     </Container>
   );
