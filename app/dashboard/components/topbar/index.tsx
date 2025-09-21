@@ -67,16 +67,17 @@ const Topbar = () => {
           </Menu.Trigger>
           <Menu.Positioner>
             <Menu.Content>
-              {icons.map((item) => (
-                <Menu.Item value={item} key={item}>
-                  <img
-                    style={{ height: "18px", width: "20px", marginRight: 8 }}
-                    src={item}
-                    alt={`icon button${item.split(".")[0]}`}
-                  />
-                  {item.split("/").pop()?.split(".")[0]}
-                </Menu.Item>
-              ))}
+              <Box padding={["4px", "8px"]} display={"flex"} gap={"10px"}>
+                {icons.map((item) => (
+                  <CustomIconButton key={item}>
+                    <img
+                      style={{ height: "18px", width: "20px" }}
+                      src={item}
+                      alt={`icon button${item.split(".")[0]}`}
+                    />
+                  </CustomIconButton>
+                ))}
+              </Box>
             </Menu.Content>
           </Menu.Positioner>
         </Menu.Root>
@@ -105,27 +106,29 @@ const Topbar = () => {
           </Menu.Trigger>
           <Menu.Positioner>
             <Menu.Content>
-              <Menu.Item value="btn-2">
-                <CustomButton brand="s">Melding maken</CustomButton>
-              </Menu.Item>
-              <Menu.Item value="btn-2">
-                <CustomButton brand="p">VIM</CustomButton>
-              </Menu.Item>
-              <Menu.Item value="btn-2">
-                <CustomButton brand="p">LMS</CustomButton>
-              </Menu.Item>
-              <Menu.Item value="btn-2">
-                <CustomButton brand="p">BHV</CustomButton>
-              </Menu.Item>
+              <Box padding={["4px", "8px"]} gap={"4px"} display={"flex"}>
+                <Menu.Item w={"fit"} value="btn-2">
+                  <CustomButton brand="s">Melding maken</CustomButton>
+                </Menu.Item>
+                <Menu.Item w="fit" value="btn-2">
+                  <CustomButton brand="p">VIM</CustomButton>
+                </Menu.Item>
+                <Menu.Item w="fit" value="btn-2">
+                  <CustomButton brand="p">LMS</CustomButton>
+                </Menu.Item>
+                <Menu.Item w={"fit"} value="btn-2">
+                  <CustomButton brand="p">BHV</CustomButton>
+                </Menu.Item>
 
-              <Menu.Item value="btn-2">
-                <CustomButton brand="p">DataLek</CustomButton>
-              </Menu.Item>
-              <Menu.Item value="btn-2">
-                <CustomIconButton maxH={"40px"} h={"full"}>
-                  <Link1 color="gray" size={"25px"} />
-                </CustomIconButton>
-              </Menu.Item>
+                <Menu.Item w="fit" value="btn-2">
+                  <CustomButton brand="p">DataLek</CustomButton>
+                </Menu.Item>
+                <Menu.Item w="fit" value="btn-2">
+                  <CustomIconButton maxH={"40px"} h={"full"}>
+                    <Link1 color="gray" size={"25px"} />
+                  </CustomIconButton>
+                </Menu.Item>
+              </Box>
             </Menu.Content>
           </Menu.Positioner>
         </Menu.Root>
