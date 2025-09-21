@@ -84,6 +84,7 @@ const StatusItem: FC<{
         borderLeft: "4px solid",
         borderColor: "primary",
       }}
+      w={{ base: "100%", lg: "fit-content" }}
       borderRadius={"base"}
       bg={isActive ? item.themeColor?.bg : "white"}
       flexWrap={"wrap"}

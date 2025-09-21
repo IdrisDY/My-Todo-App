@@ -13,6 +13,7 @@ import {
   Avatar,
   Badge,
   Button,
+  SimpleGrid,
 } from "@chakra-ui/react";
 import {
   AddCircle,
@@ -161,7 +162,12 @@ const Dashboard = () => {
         </Box>
         {/* Status Tabs */}
         <Box bg={"cream"} padding={".7em"} borderRadius={"base"} as={"section"}>
-          <HStack spaceX={".7em"}>
+          <SimpleGrid
+            display={"grid"}
+            columns={{ base: "1", md: "2", lg: "3" }}
+            flexWrap={"wrap"}
+            spaceX={".7em"}
+          >
             {statusTabs?.map((item) => (
               <StatusItem
                 isActive={item.value === activeTab}
@@ -171,7 +177,7 @@ const Dashboard = () => {
                 onClick={(term) => setActiveTab(term as TodoStatus)}
               />
             ))}
-          </HStack>
+          </SimpleGrid>
         </Box>
         {/* Table Section */}
         {viewMode === "list" && (

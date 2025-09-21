@@ -19,13 +19,11 @@ type User = {
 };
 
 const users: User[] = [
-  { id: 1, name: "Idris Adekunle", avatar: "https://i.pravatar.cc/150?img=1" },
-  { id: 2, name: "Sarah Connor", avatar: "https://i.pravatar.cc/150?img=2" },
-  { id: 3, name: "John Doe", avatar: "https://i.pravatar.cc/150?img=3" },
-  { id: 4, name: "Emily Smith", avatar: "https://i.pravatar.cc/150?img=4" },
+  { id: 1, name: "Idris Adekunle", avatar: "/images/user1.png" },
+  { id: 1, name: "Disu Ade", avatar: "/images/user2.png" },
 ];
 
-const UserSelect = () => {
+const UserSelect = ({ onSelect }: { onSelect: (term: User) => void }) => {
   const [selected, setSelected] = useState<User | null>(null);
   const [query, setQuery] = useState("");
 
@@ -81,7 +79,10 @@ const UserSelect = () => {
                   <Menu.Item
                     value={user.id.toString()}
                     key={user.id}
-                    onClick={() => setSelected(user)}
+                    onClick={() => {
+                      setSelected(user);
+                      onSelect(user);
+                    }}
                   >
                     <HStack spaceX={3} justify="space-between" w="full">
                       <HStack spaceX={2}>

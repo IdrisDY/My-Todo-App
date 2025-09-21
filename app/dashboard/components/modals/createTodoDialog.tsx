@@ -14,6 +14,7 @@ import { useState } from "react";
 import UserSelect from "../selects/user-select";
 import SelectPriority from "../selects/priority-select";
 import CustomButton from "@/components/ui/button";
+import { Todo } from "../types";
 
 export const CreateTaskDialog = ({
   triggerDialogComponent,
@@ -21,6 +22,13 @@ export const CreateTaskDialog = ({
   triggerDialogComponent: React.ReactNode;
 }) => {
   const [date, setDate] = useState("");
+  const [form, setForm] = useState<Todo>({
+    name: "",
+    date: "",
+    assignee: [],
+    priority: "Medium",
+    status: "todo",
+  });
   return (
     <CustomDialog
       triggerComponent={triggerDialogComponent}
@@ -39,6 +47,7 @@ export const CreateTaskDialog = ({
             <Input
               name="Name"
               type="text"
+              value={form.name}
               _placeholder={{ fontSize: "2em" }}
               placeholder="Task Name"
               variant={"flushed"}
@@ -52,7 +61,9 @@ export const CreateTaskDialog = ({
             flexDirection={"row"}
           >
             <Field.Label>Status</Field.Label>
-            <SelectStatus />
+            <SelectStatus
+              onChange={(status) => setForm((prev) => ({ ...prev, status }))}
+            />
           </Field.Root>
           <Field.Root
             display={"flex"}
@@ -67,7 +78,11 @@ export const CreateTaskDialog = ({
           {/* Assignees */}
           <Field.Root>
             <Field.Label>Assignees</Field.Label>
-            <UserSelect />
+            <UserSelect
+              onSelect={(user) =>
+                setForm((prev) => ({ ...prev, assignee: user }))
+              }
+            />
           </Field.Root>
 
           {/* Priority */}
