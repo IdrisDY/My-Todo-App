@@ -5,7 +5,7 @@ import React, { FC } from "react";
 import { ViewMode } from "./types";
 import { Add } from "iconsax-reactjs";
 import GridItem from "./grid-item";
-import { useTodos } from "@/app/contexts/todoContext";
+import { TodoContextType, useTodos } from "@/app/contexts/todoContext";
 import { CreateTaskDialog } from "./modals/createTodoDialog";
 import CreateTaskDialogTrigger from "./modals/create-task-trigger-button";
 
@@ -17,7 +17,7 @@ const StatusItem: FC<{
   item: StatusItemProps;
 }> = ({ viewMode = "list", isInSelect, item, isActive, onClick }) => {
   const Icon = item.icon;
-  const { todos } = useTodos();
+  const { todos } = useTodos() as TodoContextType;
   const todoItems = todos.filter((todo) => todo.status == item.value);
 
   if (viewMode === "grid") {

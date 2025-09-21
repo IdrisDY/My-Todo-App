@@ -1,4 +1,4 @@
-import { Avatar, Box, For, HStack, Text } from "@chakra-ui/react";
+import { Avatar, Box, For, GridItem, HStack, Text } from "@chakra-ui/react";
 
 const AvatarCircles = ({ images }: { images: string[] }) => {
   return (
@@ -12,7 +12,7 @@ const AvatarCircles = ({ images }: { images: string[] }) => {
           size={i == 0 ? "md" : "sm"}
           key={img}
         >
-          <Avatar.Fallback name="Segun Adebayo" />
+          <Avatar.Fallback name={"U"} />
           <Avatar.Image src={img} />
         </Avatar.Root>
       ))}

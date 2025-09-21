@@ -20,7 +20,7 @@ type User = {
 
 const users: User[] = [
   { id: 1, name: "Idris Adekunle", avatar: "/images/user1.png" },
-  { id: 1, name: "Disu Ade", avatar: "/images/user2.png" },
+  { id: 2, name: "Disu Ade", avatar: "/images/user2.png" },
 ];
 
 const UserSelect = ({ onSelect }: { onSelect: (term: User) => void }) => {
@@ -32,7 +32,7 @@ const UserSelect = ({ onSelect }: { onSelect: (term: User) => void }) => {
   );
 
   return (
-    <Box>
+    <Box paddingInline={".5em"}>
       <Menu.Root>
         <Menu.Trigger asChild>
           <Button
@@ -44,7 +44,10 @@ const UserSelect = ({ onSelect }: { onSelect: (term: User) => void }) => {
           >
             {selected ? (
               <HStack spaceX={2}>
-                {/* <Avatar src={selected.avatar} size="2xs" /> */}
+                <Avatar.Root size="2xs">
+                  <Avatar.Fallback name={selected.name} />
+                  <Avatar.Image src={selected.avatar} />
+                </Avatar.Root>
                 <Text>{selected.name}</Text>
               </HStack>
             ) : (
@@ -86,7 +89,10 @@ const UserSelect = ({ onSelect }: { onSelect: (term: User) => void }) => {
                   >
                     <HStack spaceX={3} justify="space-between" w="full">
                       <HStack spaceX={2}>
-                        {/* <Avatar.Root src={user.avatar} size="2xs" /> */}
+                        <Avatar.Root size="2xs">
+                          <Avatar.Fallback name={user.name} />
+                          <Avatar.Image src={user.avatar} />
+                        </Avatar.Root>{" "}
                         <Text fontSize="sm">{user.name}</Text>
                       </HStack>
                       {selected?.id === user.id && (

@@ -10,7 +10,7 @@ const SelectStatus = ({ onChange }: { onChange?: (term: string) => void }) => {
   return (
     <Box>
       <Menu.Root>
-        <Menu.Trigger asChild>
+        <Menu.Trigger as={"div"} asChild>
           <Button
             variant="outline"
             size="sm"

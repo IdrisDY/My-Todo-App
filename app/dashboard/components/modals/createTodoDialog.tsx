@@ -36,6 +36,13 @@ export const CreateTaskDialog = ({
   const handleSubmit = () => {
     dispatch({ type: "ADD", payload: form });
     setIsOpen(false);
+    setForm({
+      name: "",
+      date: "",
+      assignee: [],
+      priority: "Medium",
+      status: "todo",
+    });
   };
 
   return (
@@ -87,6 +94,7 @@ export const CreateTaskDialog = ({
           >
             <Field.Label>Date</Field.Label>
             <Input
+              paddingInline={".5em"}
               type="date"
               value={form.date}
               onChange={(e) =>
@@ -122,6 +130,10 @@ export const CreateTaskDialog = ({
           <Field.Root>
             <Field.Label>Description</Field.Label>
             <Textarea
+              size={"xl"}
+              paddingBlock={".5em"}
+              paddingInline={".5em"}
+              bg={"cream"}
               name="description"
               placeholder="Write something or type..."
               value={(form as any).description ?? ""}

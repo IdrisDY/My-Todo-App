@@ -8,7 +8,7 @@ type Action =
   | { type: "UPDATE"; payload: { id: number; updates: Partial<Todo> } }
   | { type: "CHANGE_STATUS"; payload: { id: number; status: TodoStatus } };
 
-const storetoStorage = (data) => {
+const storetoStorage = (data: Todo[]) => {
   localStorage.setItem("todos", JSON.stringify(data));
 };
 
@@ -74,7 +74,11 @@ export function TodoProvider({ children }: { children: React.ReactNode }) {
     },
   ];
 
-  const [todos, dispatch] = useReducer(todoReducer, [...products]);
+  const todosInStorage = JSON.parse(localStorage.getItem("todos") as string);
+
+  const [todos, dispatch] = useReducer(todoReducer, [
+    ...(todosInStorage ?? products),
+  ]);
 
   return (
     <TodoContext.Provider value={{ todos, dispatch }}>
