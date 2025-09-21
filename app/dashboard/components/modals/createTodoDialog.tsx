@@ -1,13 +1,11 @@
 import { CustomDialog } from "@/components/ui/dialog";
 import {
-  Button,
   Input,
   Textarea,
-  Select,
   Stack,
   Fieldset,
   Field,
-  NativeSelect,
+  DialogOpenChangeDetails,
 } from "@chakra-ui/react";
 import SelectStatus from "../selects/select-status";
 import { useState } from "react";
@@ -15,13 +13,14 @@ import UserSelect from "../selects/user-select";
 import SelectPriority from "../selects/priority-select";
 import CustomButton from "@/components/ui/button";
 import { Todo } from "../types";
+import { TodoContextType, useTodos } from "@/app/contexts/todoContext";
 
 export const CreateTaskDialog = ({
   triggerDialogComponent,
 }: {
   triggerDialogComponent: React.ReactNode;
 }) => {
-  const [date, setDate] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
   const [form, setForm] = useState<Todo>({
     name: "",
     date: "",
@@ -29,50 +28,71 @@ export const CreateTaskDialog = ({
     priority: "Medium",
     status: "todo",
   });
+  const onOpenChange = (details: DialogOpenChangeDetails) => {
+    setIsOpen(details.open);
+  };
+  const { dispatch } = useTodos() as TodoContextType;
+
+  const handleSubmit = () => {
+    dispatch({ type: "ADD", payload: form });
+    setIsOpen(false);
+  };
+
   return (
     <CustomDialog
+      open={isOpen}
+      onOpenChange={onOpenChange}
       triggerComponent={triggerDialogComponent}
       footer={
-        <>
-          <CustomButton brand="p">Create Task</CustomButton>
-        </>
+        <CustomButton brand="p" onClick={handleSubmit}>
+          Create Task
+        </CustomButton>
       }
     >
       <Fieldset.Root size="lg" maxW="md">
         <Fieldset.Content>
-          {/* Status */}
-
-          {/* TASK NAME */}
+          {/* Task Name */}
           <Field.Root>
             <Input
-              name="Name"
+              name="name"
               type="text"
               value={form.name}
-              _placeholder={{ fontSize: "2em" }}
+              onChange={(e) =>
+                setForm((prev) => ({ ...prev, name: e.target.value }))
+              }
               placeholder="Task Name"
-              variant={"flushed"}
+              variant="flushed"
             />
           </Field.Root>
 
+          {/* Status */}
           <Field.Root
-            display={"flex"}
-            gap={"1em"}
-            alignItems={"center"}
-            flexDirection={"row"}
+            display="flex"
+            gap="1em"
+            alignItems="center"
+            flexDirection="row"
           >
             <Field.Label>Status</Field.Label>
             <SelectStatus
               onChange={(status) => setForm((prev) => ({ ...prev, status }))}
             />
           </Field.Root>
+
+          {/* Date */}
           <Field.Root
-            display={"flex"}
-            gap={"1em"}
-            alignItems={"center"}
-            flexDirection={"row"}
+            display="flex"
+            gap="1em"
+            alignItems="center"
+            flexDirection="row"
           >
             <Field.Label>Date</Field.Label>
-            <Input type="date" value={date} />
+            <Input
+              type="date"
+              value={form.date}
+              onChange={(e) =>
+                setForm((prev) => ({ ...prev, date: e.target.value }))
+              }
+            />
           </Field.Root>
 
           {/* Assignees */}
@@ -80,7 +100,10 @@ export const CreateTaskDialog = ({
             <Field.Label>Assignees</Field.Label>
             <UserSelect
               onSelect={(user) =>
-                setForm((prev) => ({ ...prev, assignee: user }))
+                setForm((prev) => ({
+                  ...prev,
+                  assignee: [...prev.assignee, user],
+                }))
               }
             />
           </Field.Root>
@@ -88,7 +111,11 @@ export const CreateTaskDialog = ({
           {/* Priority */}
           <Field.Root>
             <Field.Label>Priority</Field.Label>
-            <SelectPriority />
+            <SelectPriority
+              onChange={(priority) =>
+                setForm((prev) => ({ ...prev, priority }))
+              }
+            />
           </Field.Root>
 
           {/* Description */}
@@ -97,6 +124,13 @@ export const CreateTaskDialog = ({
             <Textarea
               name="description"
               placeholder="Write something or type..."
+              value={(form as any).description ?? ""}
+              onChange={(e) =>
+                setForm((prev) => ({
+                  ...prev,
+                  description: e.target.value,
+                }))
+              }
             />
           </Field.Root>
         </Fieldset.Content>

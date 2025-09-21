@@ -8,26 +8,38 @@ type Action =
   | { type: "UPDATE"; payload: { id: number; updates: Partial<Todo> } }
   | { type: "CHANGE_STATUS"; payload: { id: number; status: TodoStatus } };
 
-function todoReducer(state: Todo[], action: Action): Todo[] {
+const storetoStorage = (data) => {
+  localStorage.setItem("todos", JSON.stringify(data));
+};
+
+const todoReducer = (state: Todo[], action: Action): Todo[] => {
   switch (action.type) {
     case "ADD":
-      return [...state, action.payload];
+      let addedState = [...state, action.payload];
+      storetoStorage(addedState);
+      return addedState;
     case "DELETE":
-      return state.filter((t) => t.id !== action.payload.id);
+      let deletedUpdate = state.filter((t) => t.id !== action.payload.id);
+      storetoStorage(deletedUpdate);
+      return deletedUpdate;
     case "UPDATE":
-      return state.map((t) =>
+      const updatedData = state.map((t) =>
         t.id === action.payload.id ? { ...t, ...action.payload.updates } : t
       );
+      storetoStorage(updatedData);
+      return updatedData;
     case "CHANGE_STATUS":
-      return state.map((t) =>
+      const statusChangedData = state.map((t) =>
         t.id === action.payload.id ? { ...t, status: action.payload.status } : t
       );
+      storetoStorage(statusChangedData);
+      return statusChangedData;
     default:
       return state;
   }
-}
+};
 
-type TodoContextType = {
+export type TodoContextType = {
   todos: Todo[];
   dispatch: React.Dispatch<Action>;
 };

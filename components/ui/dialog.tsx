@@ -2,6 +2,7 @@ import {
   Button,
   CloseButton,
   Dialog,
+  DialogOpenChangeDetails,
   DialogRootProps,
   Portal,
 } from "@chakra-ui/react";
@@ -12,6 +13,8 @@ type BaseDialogProps = {
   title?: string;
   children: ReactNode;
   footer?: ReactNode;
+  open?: boolean;
+  onOpenChange?: (details: DialogOpenChangeDetails) => void;
   size?: DialogRootProps["size"];
 };
 
@@ -19,11 +22,18 @@ export const CustomDialog = ({
   triggerComponent,
   title,
   children,
+  onOpenChange,
   footer,
+  open,
   size = { mdDown: "full", md: "lg" },
 }: BaseDialogProps) => {
   return (
-    <Dialog.Root placement={"center"} size={size}>
+    <Dialog.Root
+      onOpenChange={onOpenChange}
+      open={open}
+      placement={"center"}
+      size={size}
+    >
       <Dialog.Trigger asChild>{triggerComponent}</Dialog.Trigger>
       <Portal>
         <Dialog.Backdrop />
