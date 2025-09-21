@@ -9,6 +9,7 @@ import {
   Field,
   NativeSelect,
 } from "@chakra-ui/react";
+import SelectStatus from "../select-status";
 
 export const CreateTaskDialog = ({
   triggerDialogComponent,
@@ -40,16 +41,14 @@ export const CreateTaskDialog = ({
             />
           </Field.Root>
 
-          <Field.Root>
+          <Field.Root
+            display={"flex"}
+            gap={"1em"}
+            alignItems={"center"}
+            flexDirection={"row"}
+          >
             <Field.Label>Status</Field.Label>
-            <NativeSelect.Root>
-              <NativeSelect.Field name="status" defaultValue="todo">
-                <option value="todo">To Do</option>
-                <option value="inprogress">In Progress</option>
-                <option value="complete">Complete</option>
-              </NativeSelect.Field>
-              <NativeSelect.Indicator />
-            </NativeSelect.Root>
+            <SelectStatus />
           </Field.Root>
 
           {/* Assignees */}

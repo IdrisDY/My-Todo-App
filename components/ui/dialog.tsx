@@ -9,7 +9,7 @@ import { ReactNode } from "react";
 
 type BaseDialogProps = {
   triggerComponent: React.ReactNode;
-  title: string;
+  title?: string;
   children: ReactNode;
   footer?: ReactNode;
   size?: DialogRootProps["size"];

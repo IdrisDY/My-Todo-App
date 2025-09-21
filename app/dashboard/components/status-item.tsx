@@ -10,11 +10,12 @@ import { CreateTaskDialog } from "./modals/createTodoDialog";
 import CreateTaskDialogTrigger from "./modals/create-task-trigger-button";
 
 const StatusItem: FC<{
-  isActive: boolean;
-  viewMode: ViewMode;
-  onClick: (term: string) => void;
+  isActive?: boolean;
+  isInSelect?: boolean;
+  viewMode?: ViewMode;
+  onClick?: (term: string) => void;
   item: StatusItemProps;
-}> = ({ viewMode, item, isActive, onClick }) => {
+}> = ({ viewMode = "list", isInSelect, item, isActive, onClick }) => {
   const Icon = item.icon;
   const { todos } = useTodos();
   const todoItems = todos.filter((todo) => todo.status == item.value);
@@ -89,7 +90,7 @@ const StatusItem: FC<{
       minW={{ base: "30%", lg: "200px" }}
       {...fc}
       padding={".7em"}
-      onClick={() => onClick(item.value)}
+      onClick={() => onClick?.(item.value)}
       paddingRight={".3em"}
     >
       <Box {...fc} gap={".7em"} justifyContent={"start"}>
@@ -102,14 +103,16 @@ const StatusItem: FC<{
         <Text> {item.text} </Text>
       </Box>
 
-      <Text
-        padding={".5em"}
-        borderRadius={"base"}
-        color={isActive ? item.themeColor?.txt : item.themeColor?.txt}
-        bg={isActive ? item.themeColor?.alt : item.themeColor?.bg}
-      >
-        ({item.count})
-      </Text>
+      {!isInSelect && (
+        <Text
+          padding={".5em"}
+          borderRadius={"base"}
+          color={isActive ? item.themeColor?.txt : item.themeColor?.txt}
+          bg={isActive ? item.themeColor?.alt : item.themeColor?.bg}
+        >
+          ({item.count})
+        </Text>
+      )}
     </Box>
   );
 };
