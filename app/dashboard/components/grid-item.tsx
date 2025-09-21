@@ -5,6 +5,7 @@ import { Calendar, ProfileCircle } from "iconsax-reactjs";
 import AvatarCircles from "./avatar-circles";
 import PriorityItem from "./priority-item";
 import { useTodos } from "@/app/contexts/todoContext";
+import TodoMenu from "./todo-menu";
 
 const GridItem: FC<{ item: Todo }> = ({ item }) => {
   return (
@@ -34,6 +35,7 @@ const GridItem: FC<{ item: Todo }> = ({ item }) => {
           showMoreButton={false}
           item={{ text: item.priority }}
         />{" "}
+        <TodoMenu onEdit={onEdit} onDelete={onDelete} />
       </Box>
     </VStack>
   );
