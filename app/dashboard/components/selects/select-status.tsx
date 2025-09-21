@@ -1,7 +1,7 @@
 import { Box, Menu, Button, HStack, Text, Icon } from "@chakra-ui/react";
 import { useState } from "react";
-import { statusTabs } from "./common/tabs";
-import StatusItem from "./status-item";
+import { statusTabs } from "../common/tabs";
+import StatusItem from "../status-item";
 import { Check } from "iconsax-reactjs";
 
 const SelectStatus = () => {

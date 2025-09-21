@@ -9,13 +9,17 @@ import {
   Field,
   NativeSelect,
 } from "@chakra-ui/react";
-import SelectStatus from "../select-status";
+import SelectStatus from "../selects/select-status";
+import { useState } from "react";
+import UserSelect from "../selects/user-select";
+import SelectPriority from "../selects/priority-select";
 
 export const CreateTaskDialog = ({
   triggerDialogComponent,
 }: {
   triggerDialogComponent: React.ReactNode;
 }) => {
+  const [date, setDate] = useState("");
   return (
     <CustomDialog
       triggerComponent={triggerDialogComponent}
@@ -50,24 +54,26 @@ export const CreateTaskDialog = ({
             <Field.Label>Status</Field.Label>
             <SelectStatus />
           </Field.Root>
+          <Field.Root
+            display={"flex"}
+            gap={"1em"}
+            alignItems={"center"}
+            flexDirection={"row"}
+          >
+            <Field.Label>Date</Field.Label>
+            <Input type="date" value={date} />
+          </Field.Root>
 
           {/* Assignees */}
           <Field.Root>
             <Field.Label>Assignees</Field.Label>
-            <Input name="assignees" placeholder="Select or type a name" />
+            <UserSelect />
           </Field.Root>
 
           {/* Priority */}
           <Field.Root>
             <Field.Label>Priority</Field.Label>
-            <NativeSelect.Root>
-              <NativeSelect.Field name="priority" defaultValue="medium">
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-              </NativeSelect.Field>
-              <NativeSelect.Indicator />
-            </NativeSelect.Root>
+            <SelectPriority />
           </Field.Root>
 
           {/* Description */}
