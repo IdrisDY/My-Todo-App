@@ -26,14 +26,14 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
       <Box
         as="main"
-        bg={"gray.300"}
+        bg={"gray.200"}
         gridColumn={{ md: "2 / 3" }}
         w={{ base: "100%", md: "100%", lg: "100%" }}
         position={"relative"}
         minH={"100vh"}
       >
         <Topbar />
-        <Container>{children}</Container>
+        <Container padding={["30px", "50px"]}>{children}</Container>
       </Box>
     </Box>
   );

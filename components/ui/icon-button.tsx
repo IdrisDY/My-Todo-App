@@ -16,8 +16,10 @@ const CustomIconButton = ({
       _hover={{
         scale: 1.2,
         borderColor: "primary",
+        translateY: "2",
         transitionDuration: ".5s",
-        transition: "size",
+        transitionBehavior: "normal",
+        transition: "transform",
       }}
       borderColor={"gray.300"}
       borderRadius={isRound ? "30px" : "md"}

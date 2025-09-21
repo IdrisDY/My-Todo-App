@@ -29,7 +29,8 @@ const Topbar = () => {
       display={"flex"}
       right={0}
       left={0}
-      paddingInline={"20px"}
+      paddingRight={"50px"}
+      paddingLeft={"50px"}
       paddingBlock={"16px"}
       position={"sticky"}
       bg={"white"}
@@ -47,7 +48,7 @@ const Topbar = () => {
 
       {/* icon buttons */}
       {showAll ? (
-        <HStack h={"fit"} spacingX={"10px"} as={"ul"}>
+        <HStack h={"fit"} spaceX={"10px"} as={"ul"}>
           {icons.map((item) => (
             <CustomIconButton key={item}>
               <img

@@ -1,15 +1,12 @@
 import { Button, ButtonProps } from "@chakra-ui/react";
-import React from "react";
+import React, { FC } from "react";
 
-const CustomButton = ({
-  children,
-  brand,
-  ...props
-}: {
+type CustomProps = ButtonProps & {
   children?: React.ReactNode;
-  props?: ButtonProps;
   brand?: "p" | "s";
-}) => {
+};
+
+const CustomButton: FC<CustomProps> = ({ children, brand, ...props }) => {
   return (
     <Button
       _hover={{ scale: 1.1 }}

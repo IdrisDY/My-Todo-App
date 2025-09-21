@@ -49,14 +49,20 @@ export function Provider({ children }: { children: React.ReactNode }) {
         colors: {
           primary: { value: "#75C5C1" },
           secondary: { value: "#41245F" },
+
           cream: { value: "#F7F7F7" },
+          green: {
+            50: { value: "#E9F5F7" },
+          },
           gray: {
             200: { value: "#E9F5F7" },
             300: { value: "#CDD6E9" },
             400: { value: "#7988A9" },
             800: { value: "#464B50" },
           },
-
+          pink: {
+            value: "#F6ECFF",
+          },
           brand: {
             50: { value: "#EEF1F9" },
             100: { value: "#b3daff" },
