@@ -3,8 +3,11 @@ import { fc } from "@/components/ui/snippet";
 import { Box, HStack, Text } from "@chakra-ui/react";
 import { Flag, More } from "iconsax-reactjs";
 import React, { FC } from "react";
+import TodoMenu from "./todo-menu";
+import { TodoContextType, useTodos } from "@/app/contexts/todoContext";
 
 type PriorityProps = {
+  id: number;
   text: string;
   onClick?: () => void;
 };
@@ -13,6 +16,12 @@ const PriorityItem: FC<{ item: PriorityProps; showMoreButton?: boolean }> = ({
   item,
   showMoreButton = true,
 }) => {
+  const onEdit = () => {};
+  const onDelete = () => {
+    dispatch({ type: "DELETE", payload: { id: item.id as number } });
+  };
+  const { dispatch } = useTodos() as TodoContextType;
+
   let resolvedColor: string;
   switch (item.text) {
     case "Important":
@@ -34,11 +43,7 @@ const PriorityItem: FC<{ item: PriorityProps; showMoreButton?: boolean }> = ({
         <Flag variant="Bold" color={resolvedColor} />
         <Text>{item.text}</Text>
       </HStack>
-      {showMoreButton && (
-        <CustomIconButton border={"none"} onClick={item.onClick}>
-          <More size={"20px"} color="black" />
-        </CustomIconButton>
-      )}{" "}
+      {showMoreButton && <TodoMenu onEdit={onEdit} onDelete={onDelete} />}{" "}
     </Box>
   );
 };

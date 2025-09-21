@@ -4,10 +4,16 @@ import { Todo } from "./types";
 import { Calendar, ProfileCircle } from "iconsax-reactjs";
 import AvatarCircles from "./avatar-circles";
 import PriorityItem from "./priority-item";
-import { useTodos } from "@/app/contexts/todoContext";
+import { TodoContextType, useTodos } from "@/app/contexts/todoContext";
 import TodoMenu from "./todo-menu";
+import { fc } from "@/components/ui/snippet";
 
 const GridItem: FC<{ item: Todo }> = ({ item }) => {
+  const onEdit = () => {};
+  const onDelete = () => {
+    dispatch({ type: "DELETE", payload: { id: item.id as number } });
+  };
+  const { dispatch } = useTodos() as TodoContextType;
   return (
     <VStack
       alignItems={"stretch"}
@@ -29,11 +35,11 @@ const GridItem: FC<{ item: Todo }> = ({ item }) => {
         {" "}
         <ProfileCircle /> <AvatarCircles images={item.assignee} />{" "}
       </Box>
-      <Box>
+      <Box {...fc}>
         {" "}
         <PriorityItem
           showMoreButton={false}
-          item={{ text: item.priority }}
+          item={{ id: item.id as number, text: item.priority }}
         />{" "}
         <TodoMenu onEdit={onEdit} onDelete={onDelete} />
       </Box>
