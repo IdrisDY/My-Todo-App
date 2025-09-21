@@ -12,9 +12,18 @@ const CustomIconButton = ({
 }: CustomIconButtonProps) => {
   return (
     <IconButton
-      border={"brand.50"}
+      border={"1px solid"}
+      _hover={{
+        scale: 1.2,
+        borderColor: "primary",
+        transitionDuration: ".5s",
+        transition: "size",
+      }}
+      borderColor={"gray.300"}
       borderRadius={isRound ? "30px" : "md"}
       bg={"cream"}
+      paddingBlock={"12px"}
+      paddingInline={"8px"}
       {...props}
     >
       {children}

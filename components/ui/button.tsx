@@ -6,12 +6,18 @@ const CustomButton = ({
   brand,
   ...props
 }: {
-  children: React.ReactNode;
-  props: ButtonProps;
-  brand: "p" | "s";
+  children?: React.ReactNode;
+  props?: ButtonProps;
+  brand?: "p" | "s";
 }) => {
   return (
-    <Button bg={brand == "p" ? "primary" : "secondary"} {...props}>
+    <Button
+      _hover={{ scale: 1.1 }}
+      paddingInline={"10px"}
+      paddingBlock={"12px"}
+      bg={brand == "p" ? "primary" : "secondary"}
+      {...props}
+    >
       {children}
     </Button>
   );

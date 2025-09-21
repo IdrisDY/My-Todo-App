@@ -21,7 +21,7 @@ const CustomInput: FC<CustomInputProps & (InputProps | TextareaProps)> = ({
 }) => {
   const resolvedStartIcon =
     variant === "search" ? (
-      <SearchNormal size="18" style={{ marginLeft: "20px" }} />
+      <SearchNormal size="18" style={{ marginLeft: "15px" }} />
     ) : (
       startIcon
     );
@@ -40,15 +40,12 @@ const CustomInput: FC<CustomInputProps & (InputProps | TextareaProps)> = ({
   }
 
   return (
-    <InputGroup
-      height={"fit"}
-      paddingInline={"12px"}
-      startElement={resolvedStartIcon}
-    >
+    <InputGroup height={"fit"} startElement={resolvedStartIcon}>
       <Input
         _hover={{ border: "1px gray.400" }}
         _focusVisible={{ border: "1px gray.400" }}
         bg={"gray.300"}
+        paddingLeft={"5px"}
         border={"1px"}
         borderColor={"gray.300"}
         placeholder={placeholder}
