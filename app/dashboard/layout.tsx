@@ -9,8 +9,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       display={{ base: "block", md: "grid" }}
       gridTemplateColumns={{
         base: "none",
-        md: "40% 60%",
-        lg: "20% 80%",
+        md: "20% 80%",
       }}
       minH="100vh"
     >

@@ -17,8 +17,8 @@ export function Provider({ children }: { children: React.ReactNode }) {
       100: "#b3daff",
       200: "#81c2ff",
       300: "#4eaaff",
-      400: "#1a92ff", // lighter primary
-      500: "#0077e6", // primary
+      400: "#1a92ff",
+      500: "#0077e6",
       600: "#005bb4",
       700: "#004182",
       800: "#002651",
@@ -58,22 +58,11 @@ export function Provider({ children }: { children: React.ReactNode }) {
             200: { value: "#E9F5F7" },
             300: { value: "#CDD6E9" },
             400: { value: "#7988A9" },
+            350: { value: "#BAC1CC" },
             800: { value: "#464B50" },
           },
           pink: {
             value: "#F6ECFF",
-          },
-          brand: {
-            50: { value: "#EEF1F9" },
-            100: { value: "#b3daff" },
-            200: { value: "#81c2ff" },
-            300: { value: "#4eaaff" },
-            400: { value: "#1a92ff" },
-            500: { value: "#0077e6" },
-            600: { value: "#005bb4" },
-            700: { value: "#004182" },
-            800: { value: "#002651" },
-            900: { value: "#000c21" },
           },
         },
         fonts: {

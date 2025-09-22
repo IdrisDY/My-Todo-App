@@ -9,10 +9,11 @@ import SelectStatus from "./selects/select-status";
 import { Todo } from "./types";
 
 const PriorityItem: FC<{
+  text?: string;
   onClick?: () => void;
   todo?: Todo;
   showMoreButton?: boolean;
-}> = ({ todo, showMoreButton = true }) => {
+}> = ({ todo, text, showMoreButton = true }) => {
   const onEdit = () => {};
   const onDelete = () => {
     dispatch({ type: "DELETE", payload: { id: todo?.id as number } });
@@ -30,7 +31,7 @@ const PriorityItem: FC<{
     });
   };
   let resolvedColor: string;
-  switch (todo?.priority) {
+  switch (todo?.priority || text) {
     case "Important":
       resolvedColor = "#F6BE38";
       break;
@@ -53,7 +54,7 @@ const PriorityItem: FC<{
     >
       <HStack>
         <Flag variant="Bold" color={resolvedColor} />
-        <Text>{todo?.priority}</Text>
+        <Text>{todo?.priority || text}</Text>
       </HStack>
       {showMoreButton && (
         <Box

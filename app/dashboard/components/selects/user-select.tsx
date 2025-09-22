@@ -48,10 +48,11 @@ const UserSelect = ({
     onSelect(user);
   };
   return (
-    <Box paddingInline={".5em"}>
+    <Box w={"full"}>
       <Menu.Root>
         <Menu.Trigger asChild>
           <Button
+            paddingInline={".5em"}
             variant="outline"
             size="sm"
             rounded="full"

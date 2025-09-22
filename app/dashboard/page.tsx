@@ -158,11 +158,13 @@ const Dashboard = () => {
         <Box bg={"cream"} padding={".7em"} borderRadius={"base"} as={"section"}>
           <Box
             display={{ base: "grid", lg: "flex" }}
-            gridTemplateColumns={{ base: "1", md: "2" }}
-            flexWrap={{ base: "wrap", lg: "nowrap" }}
-            w={{ base: "100%", lg: "100%" }}
-            gap={".5em"}
-            spaceX={{ base: "0", lg: ".8em" }}
+            gridTemplateColumns={{
+              base: "1fr",
+              md: "repeat(2, 1fr)",
+            }}
+            flexWrap={{ lg: "nowrap" }}
+            w="100%"
+            gap={{ base: "0.5em", lg: "0.8em" }}
           >
             {statusTabs?.map((item) => (
               <StatusItem
@@ -173,7 +175,7 @@ const Dashboard = () => {
                 onClick={(term: Todo["status"]) => handleTabChange(term)}
               />
             ))}
-          </Box>
+          </Box>{" "}
         </Box>
         {/* Table Section */}
         {viewMode === "list" && (

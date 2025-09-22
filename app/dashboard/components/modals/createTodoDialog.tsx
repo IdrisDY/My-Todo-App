@@ -15,6 +15,14 @@ import SelectPriority from "../selects/priority-select";
 import CustomButton from "@/components/ui/button";
 import { Priority, Todo } from "../types";
 import { TodoContextType, useTodos } from "@/app/contexts/todoContext";
+import {
+  Calendar,
+  Flag,
+  ProfileCircle,
+  Status,
+  Stickynote,
+  User,
+} from "iconsax-reactjs";
 
 const emptyForm: Todo & { description: string } = {
   name: "",
@@ -86,7 +94,7 @@ export const CreateTaskDialog = ({
       priority: "Medium",
       status: "todo",
     });
-    onOpenChange(false);
+    onOpenChange?.(false);
   };
 
   return (
@@ -95,7 +103,11 @@ export const CreateTaskDialog = ({
       onOpenChange={(details) => onOpenChange?.(details.open)}
       triggerComponent={triggerDialogComponent}
       footer={
-        <CustomButton brand="p" onClick={handleSubmit}>
+        <CustomButton
+          w={{ base: "full", md: "30%" }}
+          brand="p"
+          onClick={handleSubmit}
+        >
           {initialData ? "Edit Task" : "Create Task"}
         </CustomButton>
       }
@@ -118,12 +130,16 @@ export const CreateTaskDialog = ({
 
           {/* Status */}
           <Field.Root
+            orientation={"horizontal"}
             display="flex"
             gap="1em"
             alignItems="center"
             flexDirection="row"
           >
-            <Field.Label>Status</Field.Label>
+            <Field.Label>
+              {" "}
+              <Status color="#BAC1CC" /> Status
+            </Field.Label>
             <SelectStatus
               value={form?.status}
               onSelect={(status: Todo["status"]) =>
@@ -138,16 +154,15 @@ export const CreateTaskDialog = ({
           </Field.Root>
 
           {/* Date */}
-          <Field.Root
-            display="flex"
-            gap="1em"
-            alignItems="center"
-            flexDirection="row"
-          >
-            <Field.Label>Date</Field.Label>
+          <Field.Root orientation={"horizontal"}>
+            <Field.Label>
+              {" "}
+              <Calendar color="#BAC1CC" /> Date
+            </Field.Label>
             <Input
               paddingInline={".5em"}
               type="date"
+              variant={"flushed"}
               value={form?.date}
               onChange={(e) =>
                 setForm((prev) => ({ ...prev, date: e.target.value }))
@@ -156,8 +171,11 @@ export const CreateTaskDialog = ({
           </Field.Root>
 
           {/* Assignees */}
-          <Field.Root>
-            <Field.Label>Assignees</Field.Label>
+          <Field.Root orientation={"horizontal"}>
+            <Field.Label>
+              {" "}
+              <ProfileCircle color="#BAC1CC" /> Assignees
+            </Field.Label>
             <UserSelect
               value={form?.assignee}
               onSelect={(user) =>
@@ -172,8 +190,11 @@ export const CreateTaskDialog = ({
           </Field.Root>
 
           {/* Priority */}
-          <Field.Root>
-            <Field.Label>Priority</Field.Label>
+          <Field.Root orientation={"horizontal"}>
+            <Field.Label>
+              {" "}
+              <Flag color="#BAC1CC" /> Priority
+            </Field.Label>
             <SelectPriority
               value={form?.priority}
               onSelect={(priority) =>
@@ -184,7 +205,10 @@ export const CreateTaskDialog = ({
 
           {/* Description */}
           <Field.Root>
-            <Field.Label>Description</Field.Label>
+            <Field.Label>
+              {" "}
+              <Stickynote color="#BAC1CC" /> Description
+            </Field.Label>
             <Textarea
               size={"xl"}
               paddingBlock={".5em"}
