@@ -13,8 +13,9 @@ const StatusItem: FC<{
   viewMode?: ViewMode;
   onClick?: (term: Todo["status"]) => void;
   item: StatusItemProps;
-}> = ({ viewMode = "list", isInSelect, item, isActive, onClick }) => {
+}> = ({ viewMode, isInSelect, item, isActive, onClick }) => {
   const Icon = item?.icon;
+  const isList = viewMode === "list";
   const {
     todoState: { todos, filtered },
   } = useTodos() as TodoContextType;
@@ -62,7 +63,7 @@ const StatusItem: FC<{
               <Text>({item?.count})</Text>
             </Box>
           </Box>
-          {viewMode == "list" && <CreateTaskDialogTrigger />}{" "}
+          {isList ? <CreateTaskDialogTrigger /> : null}{" "}
         </HStack>
 
         <VStack as={"ul"}>
