@@ -69,6 +69,7 @@ export const CreateTaskDialog = ({
       dispatch({
         type: "UPDATE",
         payload: {
+          status: form.status,
           id: initialData.id as number,
           updates: form,
         },
