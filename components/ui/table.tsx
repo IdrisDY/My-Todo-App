@@ -76,6 +76,10 @@ export function CustomTable<T extends { id: string | number }>({
   return (
     <Box
       borderRadius={"base"}
+      minH={"70vh"}
+      display={"flex"}
+      flexDir={"column"}
+      justifyContent={"space-between"}
       border={variant === "outline" ? "1px solid" : ""}
       borderColor={"gray.300"}
     >
@@ -222,10 +226,11 @@ export function CustomTable<T extends { id: string | number }>({
         </Box>
         {/* Rows Per Page */}
 
-        {/*  */}
+        {/*Page per size  */}
         <Box
           display="flex"
           gap=".7em"
+          paddingInline={"1em"}
           justifyContent={"center"}
           alignItems={"center"}
           minW={{ base: "100%", lg: "30%" }}

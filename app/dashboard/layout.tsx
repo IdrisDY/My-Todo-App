@@ -18,7 +18,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       <Box
         as="aside"
         gridColumn={{ md: "1 / 2" }}
-        overflowY={"auto"}
         position={"relative"}
         w={{ base: "100%", md: "100%", lg: "100%" }}
       >

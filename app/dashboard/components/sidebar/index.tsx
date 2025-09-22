@@ -1,6 +1,13 @@
 "use client";
 
-import { Container, Box, IconButton, Drawer, VStack } from "@chakra-ui/react";
+import {
+  Container,
+  Box,
+  IconButton,
+  Drawer,
+  VStack,
+  ScrollArea,
+} from "@chakra-ui/react";
 import {
   Call,
   Category,
@@ -65,68 +72,74 @@ const Sidebar = () => {
 
   return (
     <>
-      {/* Sidebar - desktop */}
-      <Box
-        as={"nav"}
-        aria-label="sidebar"
-        display={{ base: "none", md: "block" }}
-        paddingInline={"20px"}
-        h={"100vh"}
-        w={"100%"}
-        overflowY={"auto"}
-        overflowX={"hidden"}
-        position="absolute"
-        left={0}
-        top={"0"}
-        borderRight="1px solid"
-        borderColor="gray.300"
-      >
-        {/* Logo and Right Button */}
-        <Box
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            position: "relative",
-          }}
-        >
-          <Logo />
-          {/*Rt button  */}
-          <CustomIconButton
-            style={{
-              position: "absolute",
-              bottom: "35px",
-              right: "-30px",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-              }}
+      <ScrollArea.Root variant={"hover"}>
+        <ScrollArea.Viewport>
+          <ScrollArea.Content paddingEnd={3} textStyle={"sm"}>
+            <Box
+              as={"nav"}
+              aria-label="sidebar"
+              display={{ base: "none", md: "block" }}
+              paddingInline={"20px"}
+              h={"100vh"}
+              w={"100%"}
+              overflowX={"hidden"}
+              position="absolute"
+              left={0}
+              top={"0"}
+              borderRight="1px solid"
+              borderColor="gray.300"
             >
-              <span
+              {/* Logo and Right Button */}
+              <Box
                 style={{
-                  background: "black",
-                  width: "2px",
-                  height: "15px",
+                  display: "flex",
+                  flexDirection: "row",
+                  position: "relative",
                 }}
-              ></span>
-              <ArrowLeft size={"20px"} color="black" />
-            </div>
-          </CustomIconButton>
-        </Box>
-        <VStack
-          as={"ul"}
-          display="flex"
-          alignItems={"start"}
-          flexDirection="column"
-          gap="8px"
-        >
-          {menuItems.map((item) => (
-            <MenuItem key={item.text} item={item} />
-          ))}
-        </VStack>
-      </Box>
+              >
+                <Logo />
+                {/*Rt button  */}
+                <CustomIconButton
+                  style={{
+                    position: "absolute",
+                    bottom: "35px",
+                    right: "-30px",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <span
+                      style={{
+                        background: "black",
+                        width: "2px",
+                        height: "15px",
+                      }}
+                    ></span>
+                    <ArrowLeft size={"20px"} color="black" />
+                  </div>
+                </CustomIconButton>
+              </Box>
+              <VStack
+                as={"ul"}
+                display="flex"
+                alignItems={"start"}
+                flexDirection="column"
+                gap="8px"
+              >
+                {menuItems.map((item) => (
+                  <MenuItem key={item.text} item={item} />
+                ))}
+              </VStack>
+            </Box>
+          </ScrollArea.Content>
+          <ScrollArea.Scrollbar />
+        </ScrollArea.Viewport>
+      </ScrollArea.Root>
+      {/* Sidebar - desktop */}
 
       {/* Drawer -mobile */}
       <Drawer.Root placement="start">
