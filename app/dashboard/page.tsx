@@ -149,7 +149,6 @@ const Dashboard = () => {
           >
             {statusTabs?.map((item) => (
               <StatusItem
-              
                 isActive={item.value === activeTab}
                 viewMode={viewMode}
                 key={item.text}
@@ -159,9 +158,11 @@ const Dashboard = () => {
             ))}
           </Box>{" "}
           {/* Add Task for List  */}
-          <Box>
-            <CreateTaskDialogTrigger />
-          </Box>
+          {viewMode == "list" && (
+            <Box>
+              <CreateTaskDialogTrigger />
+            </Box>
+          )}
         </HStack>
         {/* Table Section */}
         {viewMode === "list" && (
