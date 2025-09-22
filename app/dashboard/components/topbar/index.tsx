@@ -9,8 +9,6 @@ import {
   Text,
   useBreakpointValue,
   Menu,
-  IconButton,
-  VStack,
 } from "@chakra-ui/react";
 import { ArrowDown2, Link1, Notification, More } from "iconsax-reactjs";
 import React from "react";

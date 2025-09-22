@@ -17,7 +17,7 @@ import CreateTaskDialogTrigger from "./components/modals/create-task-trigger-but
 
 const Dashboard = () => {
   const {
-    todoState: { todos, filtered },
+    todoState: { filtered },
     dispatch,
   } = useTodos() as TodoContextType;
   const [activeTab, setActiveTab] = useState<TodoStatus>("todo");

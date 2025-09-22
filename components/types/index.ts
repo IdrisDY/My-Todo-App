@@ -1,5 +1,5 @@
 import { Todo, TodoStatus } from "@/app/dashboard/components/types";
-import { FC, ReactEventHandler } from "react";
+import { FC} from "react";
 
 export type CustomInputProps = {
   type?: "input" | "textarea";

@@ -1,9 +1,5 @@
 import {
   Menu,
-  MenuContent,
-  MenuItem,
-  MenuTrigger,
-  IconButton,
   Box,
 } from "@chakra-ui/react";
 import { Edit, More, Trash } from "iconsax-reactjs";
