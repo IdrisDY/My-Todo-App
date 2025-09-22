@@ -72,84 +72,60 @@ const Sidebar = () => {
 
   return (
     <>
-      <ScrollArea.Root variant={"hover"}>
-        <ScrollArea.Viewport>
-          <ScrollArea.Content paddingEnd={3} textStyle={"sm"}>
-            <Box
-              as={"nav"}
-              aria-label="sidebar"
-              display={{ base: "none", md: "block" }}
-              paddingInline={"20px"}
-              h={"100vh"}
-              w={"100%"}
-              overflowX={"hidden"}
-              position="absolute"
-              left={0}
-              top={"0"}
-              borderRight="1px solid"
-              borderColor="gray.300"
-            >
-              {/* Logo and Right Button */}
-              <Box
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  position: "relative",
-                }}
-              >
-                <Logo />
-                {/*Rt button  */}
-                <CustomIconButton
-                  style={{
-                    position: "absolute",
-                    bottom: "35px",
-                    right: "-30px",
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <span
-                      style={{
-                        background: "black",
-                        width: "2px",
-                        height: "15px",
-                      }}
-                    ></span>
-                    <ArrowLeft size={"20px"} color="black" />
-                  </div>
-                </CustomIconButton>
-              </Box>
-              <VStack
-                as={"ul"}
-                display="flex"
-                alignItems={"start"}
-                flexDirection="column"
-                gap="8px"
-              >
-                {menuItems.map((item) => (
-                  <MenuItem key={item.text} item={item} />
-                ))}
-              </VStack>
-            </Box>
-          </ScrollArea.Content>
-          <ScrollArea.Scrollbar />
-        </ScrollArea.Viewport>
-      </ScrollArea.Root>
-      {/* Sidebar - desktop */}
+      {/* Desktop Sidebar */}
+      <Box
+        as="nav"
+        aria-label="sidebar"
+        display={{ base: "none", md: "block" }}
+        h="100vh"
+        w="250px"
+        position="fixed"
+        left={0}
+        top={0}
+        borderRight="1px solid"
+        borderColor="gray.300"
+        bg="white"
+      >
+        {/* Logo + Collapse Button */}
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="space-between"
+          p={4}
+          borderBottom="1px solid"
+          borderColor="gray.200"
+        >
+          <Logo />
+          <CustomIconButton>
+            <ArrowLeft size="20px" color="black" />
+          </CustomIconButton>
+        </Box>
 
-      {/* Drawer -mobile */}
+        {/* Scrollable Menu */}
+        <ScrollArea.Root
+          size="sm"
+          variant="hover"
+          style={{ height: "calc(100vh - 64px)" }}
+        >
+          <ScrollArea.Viewport>
+            <VStack as="ul" align="start" spaceY={2} p={4}>
+              {menuItems.map((item) => (
+                <MenuItem key={item.text} item={item} />
+              ))}
+            </VStack>
+          </ScrollArea.Viewport>
+          <ScrollArea.Scrollbar />
+        </ScrollArea.Root>
+      </Box>
+
+      {/* Mobile Drawer */}
       <Drawer.Root placement="start">
         <Drawer.Trigger asChild>
-          {/* Mobile menu button */}
           <Box
             display={{ base: "block", md: "none" }}
             position="fixed"
             top="16px"
-            right="16px"
+            left="16px"
             zIndex={1100}
           >
             <CustomIconButton>
@@ -163,11 +139,16 @@ const Sidebar = () => {
             <Logo />
           </Drawer.Header>
           <Drawer.Body>
-            <Box display="flex" flexDirection="column" gap="8px">
-              {menuItems.map((item) => (
-                <MenuItem key={item.text} item={item} />
-              ))}
-            </Box>
+            <ScrollArea.Root size="sm" style={{ height: "100%" }}>
+              <ScrollArea.Viewport>
+                <VStack align="start" spaceY={2}>
+                  {menuItems.map((item) => (
+                    <MenuItem key={item.text} item={item} />
+                  ))}
+                </VStack>
+              </ScrollArea.Viewport>
+              <ScrollArea.Scrollbar />
+            </ScrollArea.Root>
           </Drawer.Body>
         </Drawer.Content>
       </Drawer.Root>
