@@ -12,7 +12,7 @@ type Action =
         status: string;
       };
     }
-  | { type: "DELETE"; payload: { id: number } }
+  | { type: "DELETE"; payload: { id: number; status: TodoStatus } }
   | { type: "UPDATE"; payload: { id: number; updates: Partial<Todo> } }
   | {
       type: "CHANGE_STATUS";
@@ -95,7 +95,9 @@ const todoReducer = (state: State, action: Action): State => {
     }
 
     case "DELETE": {
-      const newTodos = state.todos.filter((t) => t.id !== action.payload.id);
+      const newTodos = state.todos.filter(
+        (t) => t.id !== action.payload.id && t.status == action.payload.status
+      );
       return {
         todos: newTodos,
         filtered: newTodos,

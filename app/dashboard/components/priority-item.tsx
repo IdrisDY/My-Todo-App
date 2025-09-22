@@ -14,7 +14,7 @@ const PriorityItem: FC<{
   showMoreButton?: boolean;
 }> = ({ todo, text, showMoreButton = true }) => {
   const onDelete = () => {
-    dispatch({ type: "DELETE", payload: { id: todo?.id as number } });
+    dispatch({ type: "DELETE", payload: { id: todo?.id as number, status:todo?.status } });
   };
   const { dispatch } = useTodos() as TodoContextType;
   const changeStatus = (status: Todo["status"]) => {
