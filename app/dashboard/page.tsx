@@ -86,7 +86,7 @@ const Dashboard = () => {
         display={"flex"}
       >
         {/* Back Button and Name */}
-        <Box display={"flex"} alignItems={"center"} gap={"2.225rem"}>
+        <Box display={"flex"} mb={"1em"} alignItems={"center"} gap={"2.225rem"}>
           <CustomIconButton
             bg={"none"}
             borderColor={"gray.300"}
@@ -115,13 +115,14 @@ const Dashboard = () => {
           justifyContent={"space-between"}
           borderRadius={"base"}
           bg={"green.50"}
+          w={"full"}
           gap={"1em"}
           flexDirection={{ base: "column", md: "row" }}
         >
           {/* Search */}
           <CustomInput
             onChange={handleSearch}
-            maxW={"300px"}
+            maxW={{ base: "full", lg: "300px" }}
             h={"40px"}
             bg={"white"}
             variant={"search"}
