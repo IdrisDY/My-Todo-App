@@ -1,7 +1,6 @@
-import CustomIconButton from "@/components/ui/icon-button";
 import { fc } from "@/components/ui/snippet";
 import { Box, HStack, Text } from "@chakra-ui/react";
-import { Flag, More } from "iconsax-reactjs";
+import { Flag } from "iconsax-reactjs";
 import React, { FC } from "react";
 import TodoMenu from "./todo-menu";
 import { TodoContextType, useTodos } from "@/app/contexts/todoContext";
@@ -14,13 +13,11 @@ const PriorityItem: FC<{
   todo?: Todo;
   showMoreButton?: boolean;
 }> = ({ todo, text, showMoreButton = true }) => {
-  const onEdit = () => {};
   const onDelete = () => {
     dispatch({ type: "DELETE", payload: { id: todo?.id as number } });
   };
   const { dispatch } = useTodos() as TodoContextType;
   const changeStatus = (status: Todo["status"]) => {
-    console.log(status);
     dispatch({
       type: "CHANGE_STATUS",
       payload: {
@@ -30,6 +27,7 @@ const PriorityItem: FC<{
       },
     });
   };
+  // Get flag according to priority
   let resolvedColor: string;
   switch (todo?.priority || text) {
     case "Important":
@@ -52,6 +50,7 @@ const PriorityItem: FC<{
       {...fc}
       alignItems={{ base: "start", lg: "center" }}
     >
+      {/* Flag */}
       <HStack>
         <Flag variant="Bold" color={resolvedColor} />
         <Text>{todo?.priority || text}</Text>
@@ -64,14 +63,15 @@ const PriorityItem: FC<{
           gap={".3em"}
           minW={"150px"}
         >
+          {/* Select Status  */}
           <Box maxW={{ base: "200px", md: "150px", lg: "50px" }}>
             <SelectStatus
               onSelect={changeStatus}
               value={todo?.status as Todo["status"]}
             />
           </Box>
-
-          <TodoMenu id={todo?.id} onEdit={onEdit} onDelete={onDelete} />
+          {/* More Button */}
+          <TodoMenu id={todo?.id} onDelete={onDelete} />
         </Box>
       )}{" "}
     </Box>

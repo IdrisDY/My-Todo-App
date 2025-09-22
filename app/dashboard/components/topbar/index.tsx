@@ -2,6 +2,7 @@
 import CustomButton from "@/components/ui/button";
 import CustomIconButton from "@/components/ui/icon-button";
 import { CustomInput } from "@/components/ui/input";
+import Logo from "@/components/ui/Logo";
 import {
   Box,
   HStack,
@@ -29,8 +30,8 @@ const Topbar = () => {
       display={"flex"}
       right={0}
       left={0}
-      paddingRight={"50px"}
-      paddingLeft={"50px"}
+      paddingRight={{ base: "1em", md: "50px" }}
+      paddingLeft={{ base: "1em", md: "50px" }}
       paddingBlock={"16px"}
       position={"sticky"}
       bg={"white"}
@@ -41,9 +42,17 @@ const Topbar = () => {
       gap={"16px"}
       zIndex={10}
     >
+      {/* Logo on mobile */}
+      <Box display={{ base: "block", md: "none" }}>
+        <Logo />
+      </Box>
       {/* Search Bar */}
-      <Box h={"fit"} maxW={"220px"} flexShrink={0}>
-        <CustomInput bg="cream" border="1px gray.300" variant="search" />
+      <Box h={"fit"} maxW={"220px"} flexShrink={1}>
+        <CustomInput
+          bg="cream"
+          border="1px gray.300"
+          variant="search"
+        />
       </Box>
 
       {/* icon buttons */}

@@ -25,14 +25,14 @@ import Logo from "@/components/ui/Logo";
 
 const Sidebar = () => {
   const menuItems: Omit<CustomMenuItemProps, "iconColor">[] = [
-    { path: "/", icon: <Category />, text: "Home" },
-    { path: "/", icon: <Stickynote />, text: "MKVanBinnen" },
-    { path: "/", icon: <Document />, text: "Document Management" },
-    { path: "/", icon: <People />, text: "Patient Information" },
-    { path: "/", icon: <Note />, text: "Agenda" },
+    { path: "/", icon: Category, text: "Home" },
+    { path: "/", icon: Stickynote, text: "MKVanBinnen" },
+    { path: "/", icon: Document, text: "Document Management" },
+    { path: "/", icon: People, text: "Patient Information" },
+    { path: "/", icon: Note, text: "Agenda" },
     {
       path: "/",
-      icon: <TableDocument />,
+      icon: TableDocument,
       text: "My Department",
       subItems: [
         { path: "", text: "News" },
@@ -44,14 +44,14 @@ const Sidebar = () => {
         { path: "", text: "Group settings" },
       ],
     },
-    { path: "/", icon: <Call />, text: "Phone numbers" },
-    { path: "/", icon: <Task />, text: "My to do Protocols" },
-    { path: "/", icon: <Notification />, text: "My Notifications" },
-    { path: "/", icon: <Menu />, text: "Knowledge Base" },
-    { path: "/", icon: <MessageEdit />, text: "Super Admin" },
+    { path: "/", icon: Call, text: "Phone numbers" },
+    { path: "/", icon: Task, text: "My to do Protocols" },
+    { path: "/", icon: Notification, text: "My Notifications" },
+    { path: "/", icon: Menu, text: "Knowledge Base" },
+    { path: "/", icon: MessageEdit, text: "Super Admin" },
     {
       path: "/",
-      icon: <Edit />,
+      icon: Edit,
       text: "Admin",
       subItems: [
         { path: "/", text: "Agenda" },
@@ -70,10 +70,11 @@ const Sidebar = () => {
         as={"nav"}
         aria-label="sidebar"
         display={{ base: "none", md: "block" }}
-        paddingInline={"30px"}
+        paddingInline={"20px"}
         h={"100vh"}
         w={"100%"}
         overflowY={"auto"}
+        overflowX={"hidden"}
         position="absolute"
         left={0}
         top={"0"}
@@ -151,13 +152,7 @@ const Sidebar = () => {
           <Drawer.Body>
             <Box display="flex" flexDirection="column" gap="8px">
               {menuItems.map((item) => (
-                <MenuItem
-                  iconColor="#7988A9"
-                  key={item.text}
-                  path={item.path}
-                  icon={item.icon}
-                  text={item.text}
-                />
+                <MenuItem key={item.text} item={item} />
               ))}
             </Box>
           </Drawer.Body>

@@ -51,7 +51,7 @@ const products: Todo[] = [
     status: "completed",
   },
 ];
-
+// Reducer
 const todoReducer = (state: State, action: Action): State => {
   switch (action.type) {
     case "INIT":
@@ -62,7 +62,6 @@ const todoReducer = (state: State, action: Action): State => {
 
     case "SEARCH":
       const { query, status } = action.payload;
-      console.log(query, status);
       if (!query.trim()) {
         return {
           ...state,
@@ -159,7 +158,9 @@ export const TodoProvider = ({ children }: { children: React.ReactNode }) => {
         dispatch({ type: "INIT", payload: products });
       }
     }
-  }, []); // Sets tdos to storage
+  }, []);
+
+  // Sets tdos to storage
   useEffect(() => {
     if (typeof window !== "undefined") {
       localStorage.setItem("todos", JSON.stringify(todoState.todos));

@@ -1,8 +1,9 @@
-import { Avatar, Box, For, GridItem, HStack, Text } from "@chakra-ui/react";
+import { Avatar, Box, HStack, Text } from "@chakra-ui/react";
 
 const AvatarCircles = ({ images }: { images: string[] }) => {
   return (
     <HStack>
+      {/* First 2 images */}
       {images.slice(0, 2).map((img, i) => (
         <Avatar.Root
           marginLeft={i !== 0 ? "-1.5em" : ""}

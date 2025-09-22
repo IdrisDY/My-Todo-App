@@ -1,32 +1,8 @@
 "use client";
-import { StatusItemProps } from "@/components/types";
-import CustomButton from "@/components/ui/button";
 import CustomIconButton from "@/components/ui/icon-button";
 import { CustomInput } from "@/components/ui/input";
-import {
-  Container,
-  Box,
-  Text,
-  HStack,
-  VStack,
-  Stack,
-  Avatar,
-  Badge,
-  Button,
-  SimpleGrid,
-} from "@chakra-ui/react";
-import {
-  AddCircle,
-  ArrowCircleLeft2,
-  ArrowLeft2,
-  Calendar,
-  Export,
-  ExportCurve,
-  RowHorizontal,
-  RowVertical,
-  Sort,
-  ToggleOnCircle,
-} from "iconsax-reactjs";
+import { Container, Box, Text, HStack, VStack, Stack } from "@chakra-ui/react";
+import { ArrowCircleLeft2 } from "iconsax-reactjs";
 import React, { useState } from "react";
 import StatusItem from "./components/status-item";
 import { CustomTable } from "@/components/ui/table";
@@ -34,10 +10,10 @@ import PriorityItem from "./components/priority-item";
 import AvatarCircles from "./components/avatar-circles";
 import { Todo, TodoStatus, ViewMode } from "./components/types";
 import { TodoContextType, useTodos } from "../contexts/todoContext";
-import { CreateTaskDialog } from "./components/modals/createTodoDialog";
 import { statusTabs } from "./components/common/tabs";
 import HeaderButtons from "./components/header-buttons";
 import GridListButtons from "./components/grid-list-buttons";
+import CreateTaskDialogTrigger from "./components/modals/create-task-trigger-button";
 
 const Dashboard = () => {
   const {
@@ -84,7 +60,7 @@ const Dashboard = () => {
     setSearch(e.target.value);
     dispatchSearch(e.target.value);
   };
-
+  // Handles activetab and updates todos
   const handleTabChange = (status: TodoStatus) => {
     setActiveTab(status as TodoStatus);
     dispatchSearch(search, status);
@@ -155,7 +131,12 @@ const Dashboard = () => {
           <GridListButtons onClick={(term) => handleSetViewMode(term)} />
         </Box>
         {/* Status Tabs */}
-        <Box bg={"cream"} padding={".7em"} borderRadius={"base"} as={"section"}>
+        <HStack
+          bg={"cream"}
+          padding={".7em"}
+          borderRadius={"base"}
+          as={"section"}
+        >
           <Box
             display={{ base: "grid", lg: "flex" }}
             gridTemplateColumns={{
@@ -176,7 +157,11 @@ const Dashboard = () => {
               />
             ))}
           </Box>{" "}
-        </Box>
+          {/* Add Task for List  */}
+          <Box>
+            <CreateTaskDialogTrigger />
+          </Box>
+        </HStack>
         {/* Table Section */}
         {viewMode === "list" && (
           <Box as={"section"}>

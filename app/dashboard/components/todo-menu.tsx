@@ -12,7 +12,6 @@ import { useState } from "react";
 import { TodoContextType, useTodos } from "@/app/contexts/todoContext";
 
 type TodoMenuProps = {
-  onEdit: () => void;
   onDelete: () => void;
   id?: string | number;
 };
@@ -34,6 +33,7 @@ const TodoMenu = ({ id, onDelete }: TodoMenuProps) => {
 
         <Menu.Positioner>
           <Menu.Content spaceY={"1em"} padding="1em">
+            {/* Edit Button */}
             <Menu.Item
               value="edit"
               onClick={() => setIsOpen(true)}
@@ -42,12 +42,14 @@ const TodoMenu = ({ id, onDelete }: TodoMenuProps) => {
             >
               <Edit size={"15px"} /> Edit
             </Menu.Item>{" "}
+            {/* Delete Button */}
             <Menu.Item value="delete" color={"red"} onClick={onDelete}>
               <Trash size={"15px"} /> Delete
             </Menu.Item>
           </Menu.Content>
         </Menu.Positioner>
       </Menu.Root>
+      {/* Create Dialog by controlling open */}
       <CreateTaskDialog
         initialData={todo}
         open={isOpen}

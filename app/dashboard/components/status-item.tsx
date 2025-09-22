@@ -22,7 +22,6 @@ const StatusItem: FC<{
     todoState: { filtered },
   } = useTodos() as TodoContextType;
   const todoItems = filtered?.filter?.((todo) => todo.status == item?.value);
-
   if (viewMode === "grid") {
     return (
       <Box w={"full"}>
@@ -81,6 +80,9 @@ const StatusItem: FC<{
               </Box>
             );
           })}
+          <Box w={"full"}>
+            <CreateTaskDialogTrigger showText />
+          </Box>
         </VStack>
       </Box>
     );
@@ -124,11 +126,13 @@ const StatusItem: FC<{
       {!isInSelect && (
         <Text
           padding={".3em"}
-          borderRadius={"base"}
+          borderRadius={".5em"}
+          minW={"47px"}
+          fontSize={".95em"}
           color={"black"}
           bg={isActive ? item?.themeColor?.alt : item?.themeColor?.bg}
         >
-          ({item?.count})
+          ({todoItems?.length})
         </Text>
       )}
     </Box>

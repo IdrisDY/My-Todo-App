@@ -25,9 +25,8 @@ const users: User[] = [
 
 const UserSelect = ({
   onSelect,
-  value,
 }: {
-  value: User;
+  value?: User;
   onSelect: (term: User) => void;
 }) => {
   const [selected, setSelected] = useState<User[]>([]);
@@ -36,6 +35,7 @@ const UserSelect = ({
   const filteredUsers = users.filter((u) =>
     u.name.toLowerCase().includes(query.toLowerCase())
   );
+  // handle multiple users select
   const handleSelectUser = (user: User) => {
     setSelected((prev: User[]) => {
       const isSelected = prev.some((u) => u.id === user.id);
@@ -59,6 +59,7 @@ const UserSelect = ({
             justifyContent="flex-start"
             w="200px"
           >
+            {/* Display selected user list */}
             {selected?.length > 0 &&
               selected?.map((item) => (
                 <HStack key={(item.id || item) as number} spaceX={2}>

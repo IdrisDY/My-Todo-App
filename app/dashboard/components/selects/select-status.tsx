@@ -16,6 +16,7 @@ const SelectStatus = ({
   const [selectedItem, setSelectedItem] = useState<StatusItemProps | null>(
     null
   );
+  // Update value from props
   useEffect(() => {
     if (value) {
       const item = statusTabs.find((item) => item.value === value);

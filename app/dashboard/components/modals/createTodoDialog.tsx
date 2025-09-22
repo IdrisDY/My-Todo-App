@@ -74,7 +74,7 @@ export const CreateTaskDialog = ({
       dispatch({
         type: "UPDATE",
         payload: {
-          id: initialData.id,
+          id: initialData.id as number,
           updates: form,
         },
       });
@@ -105,6 +105,7 @@ export const CreateTaskDialog = ({
       footer={
         <CustomButton
           w={{ base: "full", md: "30%" }}
+          mt={"3em"}
           brand="p"
           onClick={handleSubmit}
         >
@@ -124,6 +125,10 @@ export const CreateTaskDialog = ({
                 setForm((prev) => ({ ...prev, name: e.target.value }))
               }
               placeholder="Task Name"
+              _placeholder={{
+                fontSize: "2em",
+                color: "gray.350",
+              }}
               variant="flushed"
             />
           </Field.Root>
@@ -182,7 +187,7 @@ export const CreateTaskDialog = ({
                 setForm(
                   (prev): Todo => ({
                     ...prev,
-                    assignee: Array.from(new Set([...prev.assignee, user])),
+                    assignee: Array.from(new Set([...prev.assignee, user])) as [],
                   })
                 )
               }

@@ -36,8 +36,10 @@ export const CustomDialog = ({
       size={size}
     >
       {triggerComponent && (
-        <Dialog.Trigger asChild>
-          <Box asChild>{triggerComponent}</Box>
+        <Dialog.Trigger w={"full"} asChild>
+          <Box w={"full"} asChild>
+            {triggerComponent}
+          </Box>
         </Dialog.Trigger>
       )}{" "}
       <Portal>

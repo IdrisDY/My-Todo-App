@@ -1,5 +1,7 @@
+import { FC } from "react";
+
 export type CustomMenuItemProps = {
-  icon: React.ReactNode;
+  icon: FC;
   text: string;
   path: string;
   iconColor?: string;
