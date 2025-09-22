@@ -32,13 +32,17 @@ import StatusItem from "./components/status-item";
 import { CustomTable } from "@/components/ui/table";
 import PriorityItem from "./components/priority-item";
 import AvatarCircles from "./components/avatar-circles";
-import { TodoStatus, ViewMode } from "./components/types";
+import { Todo, TodoStatus, ViewMode } from "./components/types";
 import { TodoContextType, useTodos } from "../contexts/todoContext";
 import { CreateTaskDialog } from "./components/modals/createTodoDialog";
 import { statusTabs } from "./components/common/tabs";
+import HeaderButtons from "./components/header-buttons";
 
 const Dashboard = () => {
-  const { todos, dispatch } = useTodos() as TodoContextType;
+  const {
+    todoState: { todos, filtered },
+    dispatch,
+  } = useTodos() as TodoContextType;
   const [activeTab, setActiveTab] = useState<TodoStatus>("todo");
   const [search, setSearch] = useState("");
   const columns = [
@@ -60,24 +64,35 @@ const Dashboard = () => {
     {
       key: "priority",
       header: "Priority",
-      render: (row: any) =>
-        row.priority ? (
-          <PriorityItem item={{ text: row.priority, id: row.id }} />
-        ) : null,
+      render: (row: any) => (row.priority ? <PriorityItem todo={row} /> : null),
     },
   ];
   const [viewMode, setViewMode] = useState<ViewMode>("list");
-  const handleSearch = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const dispatchSearch = (query?: string, status?: Todo["status"]) => {
     dispatch({
       type: "SEARCH",
       payload: {
-        query: e.target.value,
-        status: activeTab,
+        query: query ?? "",
+        status: status ?? activeTab,
       },
     });
-    console.log(todos);
+  };
+  const handleSearch = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setSearch(e.target.value);
+    dispatchSearch(e.target.value);
+  };
+
+  const handleTabChange = (status: TodoStatus) => {
+    setActiveTab(status as TodoStatus);
+    dispatchSearch(search, status);
+  };
+  const handleSetGridView = () => {
+    setViewMode("grid");
+    dispatch({
+      type: "RESET",
+    });
   };
   return (
     <Container minH={"100vh"} borderRadius={"10px"} bg={"white"} color={"base"}>
@@ -104,29 +119,7 @@ const Dashboard = () => {
           </Text>
         </Box>
         {/* RIght side buttons */}
-        <HStack spaceX={".9"}>
-          <CustomIconButton>
-            <ToggleOnCircle size={"20px"} color="black" />
-          </CustomIconButton>
-          {/* Sort Icon */}
-          <CustomIconButton>
-            <Sort size={"20px"} color="black" />
-          </CustomIconButton>
-          {/* Calenddar */}
-          <CustomIconButton>
-            <Calendar size={"20px"} color="black" />
-          </CustomIconButton>
-          {/* Export btn */}
-          <CustomButton color="white" brand="s">
-            {" "}
-            <ExportCurve size={"18px"} /> Export xlsx
-          </CustomButton>
-          {/* Add task btn */}
-          <CustomButton color={"white"} brand="p">
-            {" "}
-            <AddCircle size={"18px"} /> Add Task
-          </CustomButton>
-        </HStack>
+        <HeaderButtons />
       </Box>
       {/* Search Section */}
       <VStack spaceY={".8px"} alignItems={"stretch"} padding={"1.25em"}>
@@ -156,7 +149,7 @@ const Dashboard = () => {
             <CustomIconButton
               border={"none"}
               bg={viewMode === "grid" ? "primary" : "cream"}
-              onClick={() => setViewMode("grid")}
+              onClick={() => handleSetGridView()}
             >
               <RowHorizontal
                 size={"15px"}
@@ -177,11 +170,13 @@ const Dashboard = () => {
         </Box>
         {/* Status Tabs */}
         <Box bg={"cream"} padding={".7em"} borderRadius={"base"} as={"section"}>
-          <SimpleGrid
-            display={"grid"}
-            columns={{ base: "1", md: "2", lg: "3" }}
-            flexWrap={"wrap"}
-            spaceX={".7em"}
+          <Box
+            display={{ base: "grid", lg: "flex" }}
+            gridTemplateColumns={{ base: "1", md: "2" }}
+            flexWrap={{ base: "wrap", lg: "nowrap" }}
+            w={{ base: "100%", lg: "100%" }}
+            gap={".5em"}
+            spaceX={{ base: "0", lg: ".8em" }}
           >
             {statusTabs?.map((item) => (
               <StatusItem
@@ -189,15 +184,15 @@ const Dashboard = () => {
                 viewMode={viewMode}
                 key={item.text}
                 item={item}
-                onClick={(term) => setActiveTab(term as TodoStatus)}
+                onClick={(term: Todo["status"]) => handleTabChange(term)}
               />
             ))}
-          </SimpleGrid>
+          </Box>
         </Box>
         {/* Table Section */}
         {viewMode === "list" && (
           <Box as={"section"}>
-            <CustomTable columns={columns} data={todos} />
+            <CustomTable columns={columns} data={filtered} />
           </Box>
         )}{" "}
       </VStack>

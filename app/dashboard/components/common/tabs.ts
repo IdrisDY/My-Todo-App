@@ -1,9 +1,9 @@
 import { StatusItemProps } from "@/components/types";
 import { Status, TaskSquare, TickCircle } from "iconsax-reactjs";
 const [todo, progress, completed] = [
-  { bg: "#CFB7E8", alt: "#F9F3FF", txt: "black" },
-  { bg: "#F6BE38", alt: "#FBF4E4", txt: "black" },
-  { bg: "#75C5C1", alt: "#E9F5F7", txt: "black" },
+  { bg: "#CFB7E8", alt: "#F9F3FF" },
+  { bg: "#F6BE38", alt: "#FBF4E4" },
+  { bg: "#75C5C1", alt: "#E9F5F7" },
 ];
 export type statusTabs = Omit<StatusItemProps, "onClick">;
 

@@ -31,10 +31,10 @@ const SelectStatus = ({
   };
 
   return (
-    <Box>
+    <Box w={"full"}>
       <Menu.Root>
         <Menu.Trigger as={"div"} asChild>
-          <Box rounded="full" justifyContent="space-between" w="150px">
+          <Box rounded="full" justifyContent="space-between" w="full">
             {/* Preview */}
             <HStack spaceX={2}>
               <StatusItem isInSelect item={selectedItem as StatusItemProps} />

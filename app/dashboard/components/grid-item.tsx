@@ -38,11 +38,7 @@ const GridItem: FC<{ item: Todo }> = ({ item }) => {
       </Box>
       <Box {...fc}>
         {" "}
-        <PriorityItem
-          showMoreButton={false}
-          item={{ id: item.id as number, text: item.priority }}
-        />{" "}
-        <TodoMenu id={item.id} onEdit={onEdit} onDelete={onDelete} />
+        <PriorityItem todo={item} showMoreButton />{" "}
       </Box>
     </VStack>
   );

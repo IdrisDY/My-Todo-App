@@ -5,25 +5,32 @@ import { Flag, More } from "iconsax-reactjs";
 import React, { FC } from "react";
 import TodoMenu from "./todo-menu";
 import { TodoContextType, useTodos } from "@/app/contexts/todoContext";
+import SelectStatus from "./selects/select-status";
+import { Todo } from "./types";
 
-type PriorityProps = {
-  id?: number;
-  text: string;
+const PriorityItem: FC<{
   onClick?: () => void;
-};
-
-const PriorityItem: FC<{ item: PriorityProps; showMoreButton?: boolean }> = ({
-  item,
-  showMoreButton = true,
-}) => {
+  todo?: Todo;
+  showMoreButton?: boolean;
+}> = ({ todo, showMoreButton = true }) => {
   const onEdit = () => {};
   const onDelete = () => {
-    dispatch({ type: "DELETE", payload: { id: item.id as number } });
+    dispatch({ type: "DELETE", payload: { id: todo?.id as number } });
   };
   const { dispatch } = useTodos() as TodoContextType;
-
+  const changeStatus = (status: Todo["status"]) => {
+    console.log(status);
+    dispatch({
+      type: "CHANGE_STATUS",
+      payload: {
+        id: todo?.id as number,
+        status: status,
+        activeTab: todo?.status as Todo["status"],
+      },
+    });
+  };
   let resolvedColor: string;
-  switch (item.text) {
+  switch (todo?.priority) {
     case "Important":
       resolvedColor = "#F6BE38";
       break;
@@ -38,13 +45,28 @@ const PriorityItem: FC<{ item: PriorityProps; showMoreButton?: boolean }> = ({
   }
 
   return (
-    <Box {...fc}>
+    <Box w={"full"} {...fc}>
       <HStack>
         <Flag variant="Bold" color={resolvedColor} />
-        <Text>{item.text}</Text>
+        <Text>{todo?.priority}</Text>
       </HStack>
       {showMoreButton && (
-        <TodoMenu id={item.id} onEdit={onEdit} onDelete={onDelete} />
+        <Box
+          display={"flex"}
+          justifyContent={"space-between"}
+          alignItems={"center"}
+          gap={".3em"}
+          minW={"150px"}
+        >
+          <Box maxW={{ base: "100px", lg: "50px" }}>
+            <SelectStatus
+              onSelect={changeStatus}
+              value={todo?.status as Todo["status"]}
+            />
+          </Box>
+
+          <TodoMenu id={todo?.id} onEdit={onEdit} onDelete={onDelete} />
+        </Box>
       )}{" "}
     </Box>
   );

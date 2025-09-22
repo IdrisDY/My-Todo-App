@@ -17,11 +17,12 @@ type TodoMenuProps = {
   id?: string | number;
 };
 
-const TodoMenu = ({ onEdit, id, onDelete }: TodoMenuProps) => {
+const TodoMenu = ({ id, onDelete }: TodoMenuProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { todos } = useTodos() as TodoContextType;
-  const todo = todos.find((item) => item.id === id);
-  console.log(todo);
+  const {
+    todoState: { filtered },
+  } = useTodos() as TodoContextType;
+  const todo = filtered.find((item) => item.id === id);
   return (
     <>
       <Menu.Root>
@@ -32,7 +33,7 @@ const TodoMenu = ({ onEdit, id, onDelete }: TodoMenuProps) => {
         </Menu.Trigger>
 
         <Menu.Positioner>
-          <Menu.Content spaceY={".5em"} padding=".5em">
+          <Menu.Content spaceY={"1em"} padding="1em">
             <Menu.Item
               value="edit"
               onClick={() => setIsOpen(true)}

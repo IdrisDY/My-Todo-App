@@ -54,52 +54,61 @@ export function CustomTable<T extends { id: string | number }>({
       border={variant === "outline" ? "1px solid" : ""}
       borderColor={"gray.300"}
     >
-      <Table.Root
-        borderRadius={"base"}
-        border={"0"}
-        size={size}
-        variant={variant}
-      >
-        <Table.Header>
-          <Table.Row>
-            {columns?.map((col) => (
-              <Table.ColumnHeader
-                paddingRight={"2.5em"}
-                paddingLeft={"1em"}
-                paddingBlock={"1.75em"}
-                borderRight={
-                  columns[columns.length - 1].key !== col.key ? "1px solid" : ""
-                }
-                borderColor={"gray.300"}
-                key={col.key as string}
-              >
-                {col.header}
-              </Table.ColumnHeader>
-            ))}
-          </Table.Row>
-        </Table.Header>
-
-        <Table.Body>
-          {data.map((row) => (
-            <Table.Row key={row.id}>
-              {columns.map((col) => (
-                <Table.Cell
+      <Table.ScrollArea>
+        <Table.Root
+          borderRadius={"base"}
+          border={"0"}
+          size={size}
+          variant={variant}
+        >
+          <Table.Header>
+            <Table.Row>
+              {columns?.map((col) => (
+                <Table.ColumnHeader
                   paddingRight={"2.5em"}
                   paddingLeft={"1em"}
                   paddingBlock={"1.75em"}
+                  borderRight={
+                    columns[columns.length - 1].key !== col.key
+                      ? "1px solid"
+                      : ""
+                  }
+                  borderColor={"gray.300"}
                   key={col.key as string}
                 >
-                  {col.render
-                    ? col.render(row)
-                    : (row[col.key as keyof T] as any)}
-                </Table.Cell>
+                  {col.header}
+                </Table.ColumnHeader>
               ))}
             </Table.Row>
-          ))}
-        </Table.Body>
-      </Table.Root>
+          </Table.Header>
+
+          <Table.Body>
+            {data?.map?.((row) => (
+              <Table.Row key={row.id}>
+                {columns?.map?.((col) => (
+                  <Table.Cell
+                    paddingRight={"2.5em"}
+                    paddingLeft={"1em"}
+                    paddingBlock={"1.75em"}
+                    key={col.key as string}
+                  >
+                    {col.render
+                      ? col.render(row)
+                      : (row[col.key as keyof T] as any)}
+                  </Table.Cell>
+                ))}
+              </Table.Row>
+            ))}
+          </Table.Body>
+        </Table.Root>
+      </Table.ScrollArea>
       {/* Pagination Container */}
-      <Box {...fc}>
+      <Box
+        {...fc}
+        paddingBottom={"1.5em"}
+        alignItems={{ base: "center", lg: "space-between" }}
+        flexDirection={{ base: "column", lg: "row" }}
+      >
         <Box
           bg="cream"
           maxW={{ base: "50%", lg: "30%" }}
@@ -183,6 +192,7 @@ export function CustomTable<T extends { id: string | number }>({
         <Box
           display="flex"
           gap=".7em"
+          justifyContent={"center"}
           alignItems={"center"}
           minW={{ base: "100%", lg: "30%" }}
         >

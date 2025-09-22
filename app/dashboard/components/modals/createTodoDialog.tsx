@@ -16,14 +16,22 @@ import CustomButton from "@/components/ui/button";
 import { Priority, Todo } from "../types";
 import { TodoContextType, useTodos } from "@/app/contexts/todoContext";
 
+const emptyForm: Todo & { description: string } = {
+  name: "",
+  date: "",
+  assignee: [],
+  priority: "Medium",
+  status: "todo",
+  description: "",
+};
 export const CreateTaskDialog = ({
   triggerDialogComponent,
   open,
   onOpenChange,
   initialData,
 }: {
-  open: boolean;
-  onOpenChange: (value: boolean) => void;
+  open?: boolean;
+  onOpenChange?: (value: boolean) => void;
   initialData?: Todo;
   triggerDialogComponent?: React.ReactNode;
 }) => {
@@ -36,7 +44,19 @@ export const CreateTaskDialog = ({
     description: "",
   });
   useEffect(() => {
-    setForm(initialData as Todo);
+    if (initialData) {
+      setForm({
+        id: initialData.id,
+        name: initialData.name ?? "",
+        date: initialData.date ?? "",
+        assignee: initialData.assignee ?? [],
+        priority: (initialData.priority as Priority) ?? "Medium",
+        status: initialData.status ?? "todo",
+        description: (initialData as any).description ?? "",
+      });
+    } else {
+      setForm(emptyForm);
+    }
   }, [initialData]);
 
   const { dispatch } = useTodos() as TodoContextType;
@@ -72,7 +92,7 @@ export const CreateTaskDialog = ({
   return (
     <CustomDialog
       open={open}
-      onOpenChange={(details) => onOpenChange(details.open)}
+      onOpenChange={(details) => onOpenChange?.(details.open)}
       triggerComponent={triggerDialogComponent}
       footer={
         <CustomButton brand="p" onClick={handleSubmit}>
@@ -144,7 +164,7 @@ export const CreateTaskDialog = ({
                 setForm(
                   (prev): Todo => ({
                     ...prev,
-                    assignee: [...prev.assignee, user],
+                    assignee: Array.from(new Set([...prev.assignee, user])),
                   })
                 )
               }
