@@ -12,7 +12,7 @@ import {
 import { Check } from "iconsax-reactjs";
 import { useState } from "react";
 
-type User = {
+export type User = {
   id: number;
   name: string;
   avatar: string;
@@ -26,7 +26,7 @@ const users: User[] = [
 const UserSelect = ({
   onSelect,
 }: {
-  value?: User;
+  value?: User[];
   onSelect: (term: User) => void;
 }) => {
   const [selected, setSelected] = useState<User[]>([]);

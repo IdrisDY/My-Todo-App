@@ -1,6 +1,7 @@
 import { Avatar, Box, HStack, Text } from "@chakra-ui/react";
+import { User } from "./selects/user-select";
 
-const AvatarCircles = ({ images }: { images: string[] }) => {
+const AvatarCircles = ({ images }: { images: User[] }) => {
   return (
     <HStack>
       {/* First 2 images */}
@@ -14,7 +15,7 @@ const AvatarCircles = ({ images }: { images: string[] }) => {
           key={i}
         >
           <Avatar.Fallback name={"U"} />
-          <Avatar.Image src={img} />
+          <Avatar.Image src={img.avatar} />
         </Avatar.Root>
       ))}
       <Box

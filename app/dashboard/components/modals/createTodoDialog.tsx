@@ -1,13 +1,8 @@
 import { CustomDialog } from "@/components/ui/dialog";
-import {
-  Input,
-  Textarea,
-  Fieldset,
-  Field,
-} from "@chakra-ui/react";
+import { Input, Textarea, Fieldset, Field } from "@chakra-ui/react";
 import SelectStatus from "../selects/select-status";
 import { useEffect, useState } from "react";
-import UserSelect from "../selects/user-select";
+import UserSelect, { User } from "../selects/user-select";
 import SelectPriority from "../selects/priority-select";
 import CustomButton from "@/components/ui/button";
 import { Priority, Todo } from "../types";
@@ -178,12 +173,14 @@ export const CreateTaskDialog = ({
               <ProfileCircle color="#BAC1CC" /> Assignees
             </Field.Label>
             <UserSelect
-              value={form?.assignee}
+              value={form?.assignee as User[]}
               onSelect={(user) =>
                 setForm(
                   (prev): Todo => ({
                     ...prev,
-                    assignee: Array.from(new Set([...prev.assignee, user])) as [],
+                    assignee: Array.from(
+                      new Set([...prev.assignee, user])
+                    ) as [],
                   })
                 )
               }

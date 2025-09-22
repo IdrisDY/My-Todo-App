@@ -1,5 +1,5 @@
 import { Todo, TodoStatus } from "@/app/dashboard/components/types";
-import { FC} from "react";
+import { FC } from "react";
 
 export type CustomInputProps = {
   type?: "input" | "textarea";
@@ -26,7 +26,6 @@ export type StatusItemProps = {
   themeColor?: {
     bg: string;
     alt: string;
-    txt: string;
   };
   text: string;
   count: number;

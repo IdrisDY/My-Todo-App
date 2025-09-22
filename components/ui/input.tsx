@@ -1,53 +1,37 @@
 "use client";
-import React, { FC } from "react";
-import {
-  Input,
-  InputProps,
-  Textarea,
-  TextareaProps,
-  InputGroup,
-} from "@chakra-ui/react";
+import React from "react";
+import { Input, InputProps, InputGroup } from "@chakra-ui/react";
 import { SearchNormal } from "iconsax-reactjs";
-import { CustomInputProps } from "../types";
 
-const CustomInput: FC<CustomInputProps & (InputProps | TextareaProps)> = ({
-  type = "input",
+type CustomInputProps = {
+  variant?: "default" | "search";
+  placeholder?: string;
+  startIcon?: React.ReactNode;
+} & InputProps;
+
+const CustomInput: React.FC<CustomInputProps> = ({
   variant = "default",
   placeholder,
   startIcon,
-  rows = 4,
   ...props
 }) => {
   const resolvedStartIcon =
     variant === "search" ? (
-      <SearchNormal size="18" style={{ marginLeft: "15px" }} />
+      <SearchNormal size="18" style={{ marginLeft: "8px" }} />
     ) : (
       startIcon
     );
 
-  if (type === "textarea") {
-    return (
-      <InputGroup>
-        <Textarea
-          bg={"gray.300"}
-          placeholder={placeholder}
-          rows={rows}
-          {...props}
-        />
-      </InputGroup>
-    );
-  }
-
   return (
-    <InputGroup height={"fit"} startElement={resolvedStartIcon}>
+    <InputGroup startElement={resolvedStartIcon}>
       <Input
-        _hover={{ border: "1px gray.400" }}
-        _focusVisible={{ border: "1px gray.400" }}
-        bg={"gray.300"}
-        paddingLeft={"5px"}
-        border={"1px"}
-        borderColor={"gray.300"}
+        bg="gray.300"
         placeholder={placeholder}
+        pl={resolvedStartIcon ? "2.5rem" : "0.75rem"}
+        border="1px"
+        borderColor="gray.300"
+        _hover={{ borderColor: "gray.400" }}
+        _focusVisible={{ borderColor: "gray.400" }}
         {...props}
       />
     </InputGroup>

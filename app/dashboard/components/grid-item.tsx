@@ -4,11 +4,10 @@ import { Todo } from "./types";
 import { Calendar, ProfileCircle } from "iconsax-reactjs";
 import AvatarCircles from "./avatar-circles";
 import PriorityItem from "./priority-item";
-import { TodoContextType, useTodos } from "@/app/contexts/todoContext";
 import { fc } from "@/components/ui/snippet";
+import { User } from "./selects/user-select";
 
 const GridItem: FC<{ item: Todo }> = ({ item }) => {
-  const { dispatch } = useTodos() as TodoContextType;
   return (
     <VStack
       w={"full"}
