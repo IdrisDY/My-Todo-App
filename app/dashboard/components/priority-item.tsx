@@ -45,7 +45,12 @@ const PriorityItem: FC<{
   }
 
   return (
-    <Box w={"full"} {...fc}>
+    <Box
+      w={"full"}
+      flexDirection={{ base: "column", md: "row" }}
+      {...fc}
+      alignItems={{ base: "start", lg: "center" }}
+    >
       <HStack>
         <Flag variant="Bold" color={resolvedColor} />
         <Text>{todo?.priority}</Text>
@@ -58,7 +63,7 @@ const PriorityItem: FC<{
           gap={".3em"}
           minW={"150px"}
         >
-          <Box maxW={{ base: "100px", lg: "50px" }}>
+          <Box maxW={{ base: "200px", md: "150px", lg: "50px" }}>
             <SelectStatus
               onSelect={changeStatus}
               value={todo?.status as Todo["status"]}

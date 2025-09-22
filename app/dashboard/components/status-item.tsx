@@ -49,7 +49,13 @@ const StatusItem: FC<{
                   <Icon variant="Bold" color={item?.themeColor?.bg}></Icon>
                 )}
               </span>
-              <Text> {item?.text} </Text>
+              <Text
+                fontSize={{ base: ".9em", md: "14px" }}
+                whiteSpace={"nowrap"}
+              >
+                {" "}
+                {item?.text}{" "}
+              </Text>
             </Box>
 
             <Box bg={"white"} borderRadius={"base"} padding={".5em"}>
@@ -85,11 +91,11 @@ const StatusItem: FC<{
         borderLeft: "4px solid",
         borderColor: "primary",
       }}
-      w={{ base: "100%", lg: "200px" }}
+      w={{ base: "100%",  lg: "200px" }}
       borderRadius={"base"}
       bg={isActive ? item?.themeColor?.bg : "white"}
       flexWrap={"wrap"}
-      minW={{ base: "30%", lg: "fit-content" }}
+      minW={{ base: "30%", md:'100%', lg: "fit-content" }}
       {...fc}
       padding={".4em"}
       onClick={() => onClick?.(item?.value)}
@@ -104,7 +110,10 @@ const StatusItem: FC<{
             />
           )}{" "}
         </Box>
-        <Text> {item?.text} </Text>
+        <Text fontSize={{ base: ".9em", md: "14px" }} whiteSpace={"nowrap"}>
+          {" "}
+          {item?.text}{" "}
+        </Text>
       </Box>
 
       {!isInSelect && (

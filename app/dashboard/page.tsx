@@ -37,6 +37,7 @@ import { TodoContextType, useTodos } from "../contexts/todoContext";
 import { CreateTaskDialog } from "./components/modals/createTodoDialog";
 import { statusTabs } from "./components/common/tabs";
 import HeaderButtons from "./components/header-buttons";
+import GridListButtons from "./components/grid-list-buttons";
 
 const Dashboard = () => {
   const {
@@ -88,11 +89,13 @@ const Dashboard = () => {
     setActiveTab(status as TodoStatus);
     dispatchSearch(search, status);
   };
-  const handleSetGridView = () => {
-    setViewMode("grid");
-    dispatch({
-      type: "RESET",
-    });
+  const handleSetViewMode = (term: ViewMode) => {
+    setViewMode(term);
+    if (term === "grid") {
+      dispatch({
+        type: "RESET",
+      });
+    }
   };
   return (
     <Container minH={"100vh"} borderRadius={"10px"} bg={"white"} color={"base"}>
@@ -101,6 +104,7 @@ const Dashboard = () => {
         borderBottom={"1px solid"}
         padding={"1.25em"}
         w={"full"}
+        flexDir={{ base: "column", lg: "row" }}
         justifyContent={"space-between"}
         borderColor={"gray.300"}
         display={"flex"}
@@ -122,7 +126,12 @@ const Dashboard = () => {
         <HeaderButtons />
       </Box>
       {/* Search Section */}
-      <VStack spaceY={".8px"} alignItems={"stretch"} padding={"1.25em"}>
+      <VStack
+        spaceY={".8px"}
+        display={"flex"}
+        alignItems={"stretch"}
+        padding={"1.25em"}
+      >
         <Box
           padding={".7em"}
           display={"flex"}
@@ -130,7 +139,10 @@ const Dashboard = () => {
           justifyContent={"space-between"}
           borderRadius={"base"}
           bg={"green.50"}
+          gap={"1em"}
+          flexDirection={{ base: "column", md: "row" }}
         >
+          {/* Search */}
           <CustomInput
             onChange={handleSearch}
             maxW={"300px"}
@@ -139,34 +151,8 @@ const Dashboard = () => {
             variant={"search"}
             placeholder="Search For Todo"
           />
-
-          <HStack
-            bg={"white"}
-            padding={".4em"}
-            borderRadius={"base"}
-            spaceX={".4em"}
-          >
-            <CustomIconButton
-              border={"none"}
-              bg={viewMode === "grid" ? "primary" : "cream"}
-              onClick={() => handleSetGridView()}
-            >
-              <RowHorizontal
-                size={"15px"}
-                color={viewMode === "grid" ? "white" : "gray"}
-              />
-            </CustomIconButton>
-            <CustomIconButton
-              border={"none"}
-              bg={viewMode === "list" ? "primary" : "cream"}
-              onClick={() => setViewMode("list")}
-            >
-              <RowVertical
-                size={"15px"}
-                color={viewMode === "list" ? "white" : "gray"}
-              />
-            </CustomIconButton>
-          </HStack>
+          {/* Grid , List buttons */}
+          <GridListButtons onClick={(term) => handleSetViewMode(term)} />
         </Box>
         {/* Status Tabs */}
         <Box bg={"cream"} padding={".7em"} borderRadius={"base"} as={"section"}>

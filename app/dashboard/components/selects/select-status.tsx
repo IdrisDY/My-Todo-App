@@ -36,7 +36,7 @@ const SelectStatus = ({
         <Menu.Trigger as={"div"} asChild>
           <Box rounded="full" justifyContent="space-between" w="full">
             {/* Preview */}
-            <HStack spaceX={2}>
+            <HStack w={"full"} spaceX={2}>
               <StatusItem isInSelect item={selectedItem as StatusItemProps} />
             </HStack>
           </Box>
