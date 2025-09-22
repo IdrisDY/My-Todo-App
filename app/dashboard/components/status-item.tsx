@@ -17,9 +17,12 @@ const StatusItem: FC<{
   const Icon = item?.icon;
   const [isOpen, setIsOpen] = useState(false);
   const {
-    todoState: { filtered },
+    todoState: { todos, filtered },
   } = useTodos() as TodoContextType;
   const todoItems = filtered?.filter?.((todo) => todo.status == item?.value);
+  const baseFilteredByStatusTodos = todos.filter(
+    (todo) => todo.status == item?.value
+  );
   if (viewMode === "grid") {
     return (
       <Box w={"full"}>
@@ -130,7 +133,7 @@ const StatusItem: FC<{
           color={"black"}
           bg={isActive ? item?.themeColor?.alt : item?.themeColor?.bg}
         >
-          ({todoItems?.length})
+          ({baseFilteredByStatusTodos?.length})
         </Text>
       )}
     </Box>

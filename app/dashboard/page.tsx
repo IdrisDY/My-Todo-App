@@ -149,6 +149,7 @@ const Dashboard = () => {
           >
             {statusTabs?.map((item) => (
               <StatusItem
+              
                 isActive={item.value === activeTab}
                 viewMode={viewMode}
                 key={item.text}
