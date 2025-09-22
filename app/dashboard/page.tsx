@@ -61,7 +61,9 @@ const Dashboard = () => {
       key: "priority",
       header: "Priority",
       render: (row: any) =>
-        row.priority ? <PriorityItem item={{ text: row.priority }} /> : null,
+        row.priority ? (
+          <PriorityItem item={{ text: row.priority, id: row.id }} />
+        ) : null,
     },
   ];
   const [viewMode, setViewMode] = useState<ViewMode>("list");

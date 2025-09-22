@@ -16,9 +16,9 @@ const StatusItem: FC<{
   onClick?: (term: string) => void;
   item: StatusItemProps;
 }> = ({ viewMode = "list", isInSelect, item, isActive, onClick }) => {
-  const Icon = item.icon;
+  const Icon = item?.icon;
   const { todos } = useTodos() as TodoContextType;
-  const todoItems = todos.filter((todo) => todo.status == item.value);
+  const todoItems = todos?.filter((todo) => todo.status == item?.value);
 
   if (viewMode === "grid") {
     return (
@@ -29,7 +29,7 @@ const StatusItem: FC<{
           paddingTop={".4em"}
           paddingBottom={".8em"}
           paddingInline={".4em"}
-          bg={item.color}
+          bg={item?.color}
           {...fc}
           gap={".7em"}
         >
@@ -42,18 +42,15 @@ const StatusItem: FC<{
               bg={"white"}
             >
               <span>
-                {
-                  <item.icon
-                    variant="Bold"
-                    color={item.themeColor?.bg}
-                  ></item.icon>
-                }
+                {Icon && (
+                  <Icon variant="Bold" color={item?.themeColor?.bg}></Icon>
+                )}
               </span>
-              <Text> {item.text} </Text>
+              <Text> {item?.text} </Text>
             </Box>
 
             <Box bg={"white"} borderRadius={"base"} padding={".5em"}>
-              <Text>({item.count})</Text>
+              <Text>({item?.count})</Text>
             </Box>
           </Box>
 
@@ -62,14 +59,15 @@ const StatusItem: FC<{
           </Box>
         </HStack>
 
-        <VStack as={"ul"}></VStack>
-        {todoItems?.map((todo) => {
-          return (
-            <Box as="li">
-              <GridItem item={todo} />
-            </Box>
-          );
-        })}
+        <VStack as={"ul"}>
+          {todoItems?.map((todo) => {
+            return (
+              <Box key={todo.id} as="li">
+                <GridItem item={todo} />
+              </Box>
+            );
+          })}
+        </VStack>
       </Box>
     );
   }
@@ -86,32 +84,34 @@ const StatusItem: FC<{
       }}
       w={{ base: "100%", lg: "fit-content" }}
       borderRadius={"base"}
-      bg={isActive ? item.themeColor?.bg : "white"}
+      bg={isActive ? item?.themeColor?.bg : "white"}
       flexWrap={"wrap"}
       minW={{ base: "30%", lg: "200px" }}
       {...fc}
       padding={".7em"}
-      onClick={() => onClick?.(item.value)}
+      onClick={() => onClick?.(item?.value)}
       paddingRight={".3em"}
     >
       <Box {...fc} gap={".7em"} justifyContent={"start"}>
-        <Box color={isActive ? item.themeColor?.alt : item.themeColor?.bg}>
-          <Icon
-            color={isActive ? item.themeColor?.alt : item.themeColor?.bg}
-            variant="Bold"
-          />
+        <Box color={isActive ? item?.themeColor?.alt : item?.themeColor?.bg}>
+          {Icon && (
+            <Icon
+              color={isActive ? item?.themeColor?.alt : item?.themeColor?.bg}
+              variant="Bold"
+            />
+          )}{" "}
         </Box>
-        <Text> {item.text} </Text>
+        <Text> {item?.text} </Text>
       </Box>
 
       {!isInSelect && (
         <Text
           padding={".5em"}
           borderRadius={"base"}
-          color={isActive ? item.themeColor?.txt : item.themeColor?.txt}
-          bg={isActive ? item.themeColor?.alt : item.themeColor?.bg}
+          color={isActive ? item?.themeColor?.txt : item?.themeColor?.txt}
+          bg={isActive ? item?.themeColor?.alt : item?.themeColor?.bg}
         >
-          ({item.count})
+          ({item?.count})
         </Text>
       )}
     </Box>

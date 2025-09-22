@@ -1,28 +1,45 @@
 import { Box, Menu, Button, HStack, Text, Icon } from "@chakra-ui/react";
-import { MouseEventHandler, useState } from "react";
+import { MouseEventHandler, useEffect, useState } from "react";
 import { statusTabs } from "../common/tabs";
 import StatusItem from "../status-item";
 import { Check } from "iconsax-reactjs";
+import { Todo } from "../types";
+import { StatusItemProps } from "@/components/types";
 
-const SelectStatus = ({ onChange }: { onChange?: (term: string) => void }) => {
-  const [selected, setSelected] = useState(statusTabs[0]);
+const SelectStatus = ({
+  onSelect,
+  value,
+}: {
+  value: string;
+  onSelect?: (term: Todo["status"]) => void;
+}) => {
+  const [selectedItem, setSelectedItem] = useState<StatusItemProps | null>(
+    null
+  );
+  useEffect(() => {
+    if (value) {
+      const item = statusTabs.find((item) => item.value === value);
+      setSelectedItem(item || null);
+    } else {
+      setSelectedItem(statusTabs[0] || null);
+    }
+  }, [value]);
+
+  const handleSelect = (item: statusTabs) => {
+    setSelectedItem(item);
+    onSelect?.(item?.value);
+  };
 
   return (
     <Box>
       <Menu.Root>
         <Menu.Trigger as={"div"} asChild>
-          <Button
-            variant="outline"
-            size="sm"
-            rounded="full"
-            justifyContent="space-between"
-            w="150px"
-          >
+          <Box rounded="full" justifyContent="space-between" w="150px">
             {/* Preview */}
             <HStack spaceX={2}>
-              <StatusItem isInSelect item={selected} />
+              <StatusItem isInSelect item={selectedItem as StatusItemProps} />
             </HStack>
-          </Button>
+          </Box>
         </Menu.Trigger>
 
         <Menu.Positioner>
@@ -32,11 +49,13 @@ const SelectStatus = ({ onChange }: { onChange?: (term: string) => void }) => {
               <Menu.Item
                 key={item.value}
                 value={item.value}
-                onClick={() => setSelected(item)}
+                onClick={() => {
+                  handleSelect(item);
+                }}
               >
                 <HStack spaceX={2} justify="space-between" w="full">
                   <StatusItem isInSelect item={item} />
-                  {selected.value === item.value && (
+                  {selectedItem?.value === item.value && (
                     <Icon as={Check} boxSize={4} />
                   )}
                 </HStack>

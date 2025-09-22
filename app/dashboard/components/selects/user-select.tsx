@@ -24,13 +24,23 @@ const users: User[] = [
 ];
 
 const UserSelect = ({ onSelect }: { onSelect: (term: User) => void }) => {
-  const [selected, setSelected] = useState<User | null>(null);
+  const [selected, setSelected] = useState<User[]>([]);
   const [query, setQuery] = useState("");
 
   const filteredUsers = users.filter((u) =>
     u.name.toLowerCase().includes(query.toLowerCase())
   );
-
+  const handleSelectUser = (user: User) => {
+    setSelected((prev: User[]) => {
+      const isSelected = prev.some((u) => u.id === user.id);
+      if (isSelected) {
+        return prev?.filter((u) => u.id !== user.id);
+      } else {
+        return [...prev, user];
+      }
+    });
+    onSelect(user);
+  };
   return (
     <Box paddingInline={".5em"}>
       <Menu.Root>
@@ -42,15 +52,18 @@ const UserSelect = ({ onSelect }: { onSelect: (term: User) => void }) => {
             justifyContent="flex-start"
             w="200px"
           >
-            {selected ? (
-              <HStack spaceX={2}>
-                <Avatar.Root size="2xs">
-                  <Avatar.Fallback name={selected.name} />
-                  <Avatar.Image src={selected.avatar} />
-                </Avatar.Root>
-                <Text>{selected.name}</Text>
-              </HStack>
-            ) : (
+            {selected?.length > 0 &&
+              selected?.map((item) => (
+                <HStack key={(item.id || item) as number} spaceX={2}>
+                  <Avatar.Root size="2xs">
+                    <Avatar.Fallback name={item.name} />
+                    <Avatar.Image src={(item.avatar || item) as string} />
+                  </Avatar.Root>
+                  <Text>{item.name}</Text>
+                </HStack>
+              ))}
+
+            {selected?.length == 0 && (
               <Text color="gray.500">Select a user</Text>
             )}
           </Button>
@@ -83,8 +96,7 @@ const UserSelect = ({ onSelect }: { onSelect: (term: User) => void }) => {
                     value={user.id.toString()}
                     key={user.id}
                     onClick={() => {
-                      setSelected(user);
-                      onSelect(user);
+                      handleSelectUser(user);
                     }}
                   >
                     <HStack spaceX={3} justify="space-between" w="full">
@@ -95,9 +107,8 @@ const UserSelect = ({ onSelect }: { onSelect: (term: User) => void }) => {
                         </Avatar.Root>{" "}
                         <Text fontSize="sm">{user.name}</Text>
                       </HStack>
-                      {selected?.id === user.id && (
-                        <Icon as={Check} boxSize={4} />
-                      )}
+                      {selected?.find((item) => (item.id = user.id))?.id ===
+                        user.id && <Icon as={Check} boxSize={4} />}
                     </HStack>
                   </Menu.Item>
                 ))

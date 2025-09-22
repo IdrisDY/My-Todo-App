@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   CloseButton,
   Dialog,
@@ -9,7 +10,7 @@ import {
 import { ReactNode } from "react";
 
 type BaseDialogProps = {
-  triggerComponent: React.ReactNode;
+  triggerComponent?: React.ReactNode;
   title?: string;
   children: ReactNode;
   footer?: ReactNode;
@@ -34,7 +35,11 @@ export const CustomDialog = ({
       placement={"center"}
       size={size}
     >
-      <Dialog.Trigger asChild>{triggerComponent}</Dialog.Trigger>
+      {triggerComponent && (
+        <Dialog.Trigger asChild>
+          <Box asChild>{triggerComponent}</Box>
+        </Dialog.Trigger>
+      )}{" "}
       <Portal>
         <Dialog.Backdrop />
         <Dialog.Positioner>

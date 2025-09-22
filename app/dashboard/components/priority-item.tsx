@@ -7,7 +7,7 @@ import TodoMenu from "./todo-menu";
 import { TodoContextType, useTodos } from "@/app/contexts/todoContext";
 
 type PriorityProps = {
-  id: number;
+  id?: number;
   text: string;
   onClick?: () => void;
 };
@@ -43,7 +43,9 @@ const PriorityItem: FC<{ item: PriorityProps; showMoreButton?: boolean }> = ({
         <Flag variant="Bold" color={resolvedColor} />
         <Text>{item.text}</Text>
       </HStack>
-      {showMoreButton && <TodoMenu onEdit={onEdit} onDelete={onDelete} />}{" "}
+      {showMoreButton && (
+        <TodoMenu id={item.id} onEdit={onEdit} onDelete={onDelete} />
+      )}{" "}
     </Box>
   );
 };

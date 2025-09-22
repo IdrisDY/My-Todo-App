@@ -5,8 +5,9 @@ const [todo, progress, completed] = [
   { bg: "#F6BE38", alt: "#FBF4E4", txt: "black" },
   { bg: "#75C5C1", alt: "#E9F5F7", txt: "black" },
 ];
+export type statusTabs = Omit<StatusItemProps, "onClick">;
 
-export const statusTabs: Omit<StatusItemProps, "onClick">[] = [
+export const statusTabs: statusTabs[] = [
   {
     icon: TaskSquare,
     themeColor: todo,

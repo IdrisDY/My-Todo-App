@@ -4,9 +4,15 @@ import { Check } from "iconsax-reactjs";
 import PriorityItem from "../priority-item";
 import { Priority } from "../types";
 
-const SelectPriority = () => {
+const SelectPriority = ({
+  onSelect,
+  value,
+}: {
+  value: Priority;
+  onSelect: (term: Priority) => void;
+}) => {
   const priorityItems: Priority[] = ["Medium", "Important", "Urgent"];
-  const [selected, setSelected] = useState<Priority>(priorityItems[0]);
+  const [selected, setSelected] = useState<Priority>(value || priorityItems[0]);
 
   return (
     <Box>
@@ -33,7 +39,10 @@ const SelectPriority = () => {
               <Menu.Item
                 key={item}
                 value={item}
-                onClick={() => setSelected(item)}
+                onClick={() => {
+                  setSelected(item);
+                  onSelect(item);
+                }}
               >
                 <HStack spaceX={2} justify="space-between" w="full">
                   <PriorityItem showMoreButton={false} item={{ text: item }} />
