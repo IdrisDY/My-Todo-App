@@ -161,7 +161,7 @@ const Dashboard = () => {
           </Box>{" "}
           {/* Add Task for List  */}
           {viewMode == "list" && (
-            <Box>
+            <Box h={"full"}>
               <CreateTaskDialogTrigger />
             </Box>
           )}

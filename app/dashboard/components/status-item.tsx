@@ -1,7 +1,7 @@
 import { StatusItemProps } from "@/components/types";
 import { fc } from "@/components/ui/snippet";
 import { Box, HStack, Text, VStack } from "@chakra-ui/react";
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import { Todo, ViewMode } from "./types";
 import GridItem from "./grid-item";
 import { TodoContextType, useTodos } from "@/app/contexts/todoContext";

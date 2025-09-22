@@ -9,7 +9,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       display={{ base: "block", md: "grid" }}
       gridTemplateColumns={{
         base: "none",
-        md: "20% 80%",
+        md: "30% 70%",
+        lg:"20% 80%"
       }}
       h="100vh"
       overflowX={"hidden"}

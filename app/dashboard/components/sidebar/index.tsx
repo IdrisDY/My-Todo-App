@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  Box,
-  Drawer,
-  VStack,
-  ScrollArea,
-} from "@chakra-ui/react";
+import { Box, Drawer, VStack, ScrollArea } from "@chakra-ui/react";
 import {
   Call,
   Category,
@@ -132,7 +127,12 @@ const Sidebar = () => {
           </Box>
         </Drawer.Trigger>
         <Drawer.Backdrop />
-        <Drawer.Content maxW="70%">
+        <Drawer.Content
+          minH={"100vh"}
+          position={"fixed"}
+          bottom={"0"}
+          maxW="70%"
+        >
           <Drawer.Header borderBottomWidth="1px">
             <Logo />
           </Drawer.Header>
