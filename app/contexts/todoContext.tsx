@@ -95,12 +95,13 @@ const todoReducer = (state: State, action: Action): State => {
     }
 
     case "DELETE": {
-      const newTodos = state.todos.filter(
-        (t) => t.id !== action.payload.id && t.status == action.payload.status
+      const newTodos = state.todos.filter((t) => t.id !== action.payload.id);
+      const newFiltered = newTodos.filter(
+        (t) => t.status === action.payload.status
       );
       return {
         todos: newTodos,
-        filtered: newTodos,
+        filtered: newFiltered,
       };
     }
 
