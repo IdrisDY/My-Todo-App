@@ -15,7 +15,6 @@ const StatusItem: FC<{
   item: StatusItemProps;
 }> = ({ viewMode = "list", isInSelect, item, isActive, onClick }) => {
   const Icon = item?.icon;
-  const [isOpen, setIsOpen] = useState(false);
   const {
     todoState: { todos, filtered },
   } = useTodos() as TodoContextType;
@@ -63,14 +62,7 @@ const StatusItem: FC<{
               <Text>({item?.count})</Text>
             </Box>
           </Box>
-
-          <Box bg={"white"} borderRadius={"base"} as={"div"}>
-            <CreateTaskDialogTrigger
-              open={isOpen}
-              onOpenChange={(value) => setIsOpen(value)}
-              status={item.value}
-            />
-          </Box>
+          {viewMode == "list" && <CreateTaskDialogTrigger />}{" "}
         </HStack>
 
         <VStack as={"ul"}>
@@ -81,9 +73,8 @@ const StatusItem: FC<{
               </Box>
             );
           })}
-          <Box w={"full"}>
-            <CreateTaskDialogTrigger showText />
-          </Box>
+
+          <CreateTaskDialogTrigger showText />
         </VStack>
       </Box>
     );

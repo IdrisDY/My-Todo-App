@@ -6,7 +6,6 @@ import { Todo } from "../types";
 
 const CreateTaskDialogTrigger = ({
   status,
-  open,
   onOpenChange,
   showText = false,
 }: {
@@ -24,7 +23,6 @@ const CreateTaskDialogTrigger = ({
         assignee: [],
         priority: "Medium",
       }}
-      onOpenChange={onOpenChange}
       triggerDialogComponent={
         <HStack
           cursor={"pointer"}

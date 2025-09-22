@@ -162,6 +162,8 @@ export type TodoContextType = {
   dispatch: React.Dispatch<Action>;
   activeTab: Todo["status"];
   setActiveTab: (tab: Todo["status"]) => void;
+  open: boolean;
+  setOpen: (value: boolean) => void;
 };
 
 const TodoContext = createContext<TodoContextType | undefined>(undefined);
@@ -172,6 +174,7 @@ export const TodoProvider = ({ children }: { children: React.ReactNode }) => {
     filtered: [],
   });
   const [activeTab, setActiveTab] = useState("todo" as Todo["status"]);
+  const [open, setOpen] = useState(false);
 
   // gets froms torage
   useEffect(() => {
@@ -198,7 +201,7 @@ export const TodoProvider = ({ children }: { children: React.ReactNode }) => {
   }, [todoState.todos]);
   return (
     <TodoContext.Provider
-      value={{ activeTab, setActiveTab, todoState, dispatch }}
+      value={{ open, setOpen, activeTab, setActiveTab, todoState, dispatch }}
     >
       {children}
     </TodoContext.Provider>

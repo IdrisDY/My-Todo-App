@@ -10,9 +10,9 @@ type TodoMenuProps = {
 };
 
 const TodoMenu = ({ id, onDelete }: TodoMenuProps) => {
-  const [isOpen, setIsOpen] = useState(false);
   const {
     todoState: { filtered },
+    setOpen,
   } = useTodos() as TodoContextType;
   const todo = filtered.find((item) => item.id === id);
   return (
@@ -28,7 +28,7 @@ const TodoMenu = ({ id, onDelete }: TodoMenuProps) => {
           <Menu.Content spaceY={"1em"} padding="1em">
             <Menu.Item
               value="edit"
-              onClick={() => setIsOpen(true)}
+              onClick={() => setOpen(true)}
               display={"flex "}
               gap={".5em"}
             >
@@ -40,11 +40,7 @@ const TodoMenu = ({ id, onDelete }: TodoMenuProps) => {
           </Menu.Content>
         </Menu.Positioner>
       </Menu.Root>
-      <CreateTaskDialog
-        initialData={todo}
-        open={isOpen}
-        onOpenChange={(value) => setIsOpen(value)}
-      />
+      <CreateTaskDialog initialData={todo} />
     </>
   );
 };
