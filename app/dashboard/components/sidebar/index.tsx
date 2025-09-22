@@ -98,10 +98,18 @@ const Sidebar = () => {
         <ScrollArea.Root
           size="sm"
           variant="hover"
+          paddingBottom={"2em"}
           style={{ height: "calc(100vh - 64px)" }}
         >
           <ScrollArea.Viewport>
-            <VStack as="ul" align="start" spaceY={2} p={4}>
+            <VStack
+              as="ul"
+              align="start"
+              paddingBottom={"4em"}
+              spaceY={2}
+              paddingInline={4}
+              paddingTop={4}
+            >
               {menuItems.map((item) => (
                 <MenuItem key={item.text} item={item} />
               ))}
