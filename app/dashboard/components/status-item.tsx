@@ -62,7 +62,7 @@ const StatusItem: FC<{
         <VStack as={"ul"}>
           {todoItems?.map((todo) => {
             return (
-              <Box key={todo.id} as="li">
+              <Box w={"full"} h={"full"} key={todo.id} as="li">
                 <GridItem item={todo} />
               </Box>
             );

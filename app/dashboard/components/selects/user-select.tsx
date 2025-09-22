@@ -23,7 +23,13 @@ const users: User[] = [
   { id: 2, name: "Disu Ade", avatar: "/images/user2.png" },
 ];
 
-const UserSelect = ({ onSelect }: { onSelect: (term: User) => void }) => {
+const UserSelect = ({
+  onSelect,
+  value,
+}: {
+  value: User;
+  onSelect: (term: User) => void;
+}) => {
   const [selected, setSelected] = useState<User[]>([]);
   const [query, setQuery] = useState("");
 
@@ -91,10 +97,10 @@ const UserSelect = ({ onSelect }: { onSelect: (term: User) => void }) => {
             {/* User list */}
             <VStack align="stretch" spaceY={1}>
               {filteredUsers.length > 0 ? (
-                filteredUsers.map((user) => (
+                filteredUsers.map((user, i) => (
                   <Menu.Item
                     value={user.id.toString()}
-                    key={user.id}
+                    key={i}
                     onClick={() => {
                       handleSelectUser(user);
                     }}

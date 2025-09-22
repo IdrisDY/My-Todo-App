@@ -16,6 +16,7 @@ const GridItem: FC<{ item: Todo }> = ({ item }) => {
   const { dispatch } = useTodos() as TodoContextType;
   return (
     <VStack
+      w={"full"}
       alignItems={"stretch"}
       bg={"white"}
       padding={".9em"}
@@ -23,7 +24,7 @@ const GridItem: FC<{ item: Todo }> = ({ item }) => {
     >
       {/* Name */}
       <Text fontWeight={600} color={"text"}>
-        {item.name}
+        {item.name ?? "-- --"}
       </Text>
       {/* Date */}
       <Box display={"flex"} gap={".5em"}>
@@ -41,7 +42,7 @@ const GridItem: FC<{ item: Todo }> = ({ item }) => {
           showMoreButton={false}
           item={{ id: item.id as number, text: item.priority }}
         />{" "}
-        <TodoMenu onEdit={onEdit} onDelete={onDelete} />
+        <TodoMenu id={item.id} onEdit={onEdit} onDelete={onDelete} />
       </Box>
     </VStack>
   );

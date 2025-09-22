@@ -21,7 +21,7 @@ const TodoMenu = ({ onEdit, id, onDelete }: TodoMenuProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const { todos } = useTodos() as TodoContextType;
   const todo = todos.find((item) => item.id === id);
-  console.log(id);
+  console.log(todo);
   return (
     <>
       <Menu.Root>

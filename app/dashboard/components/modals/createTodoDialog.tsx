@@ -40,9 +40,25 @@ export const CreateTaskDialog = ({
   }, [initialData]);
 
   const { dispatch } = useTodos() as TodoContextType;
-
+  // handles edit and create task
   const handleSubmit = () => {
-    dispatch({ type: "ADD", payload: { ...form, id: Math.random() * 10 } });
+    if (initialData) {
+      dispatch({
+        type: "UPDATE",
+        payload: {
+          id: initialData.id,
+          updates: form,
+        },
+      });
+    } else {
+      dispatch({
+        type: "ADD",
+        payload: {
+          ...form,
+          id: Date.now(),
+        },
+      });
+    }
     setForm({
       name: "",
       date: "",
@@ -60,7 +76,7 @@ export const CreateTaskDialog = ({
       triggerComponent={triggerDialogComponent}
       footer={
         <CustomButton brand="p" onClick={handleSubmit}>
-          Create Task
+          {initialData ? "Edit Task" : "Create Task"}
         </CustomButton>
       }
     >

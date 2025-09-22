@@ -33,14 +33,14 @@ import { CustomTable } from "@/components/ui/table";
 import PriorityItem from "./components/priority-item";
 import AvatarCircles from "./components/avatar-circles";
 import { TodoStatus, ViewMode } from "./components/types";
-import { useTodos } from "../contexts/todoContext";
+import { TodoContextType, useTodos } from "../contexts/todoContext";
 import { CreateTaskDialog } from "./components/modals/createTodoDialog";
 import { statusTabs } from "./components/common/tabs";
 
 const Dashboard = () => {
-  const { todos } = useTodos();
+  const { todos, dispatch } = useTodos() as TodoContextType;
   const [activeTab, setActiveTab] = useState<TodoStatus>("todo");
-
+  const [search, setSearch] = useState("");
   const columns = [
     {
       key: "name",
@@ -67,6 +67,18 @@ const Dashboard = () => {
     },
   ];
   const [viewMode, setViewMode] = useState<ViewMode>("list");
+  const handleSearch = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    dispatch({
+      type: "SEARCH",
+      payload: {
+        query: e.target.value,
+        status: activeTab,
+      },
+    });
+    console.log(todos);
+  };
   return (
     <Container minH={"100vh"} borderRadius={"10px"} bg={"white"} color={"base"}>
       <Box
@@ -127,6 +139,7 @@ const Dashboard = () => {
           bg={"green.50"}
         >
           <CustomInput
+            onChange={handleSearch}
             maxW={"300px"}
             h={"40px"}
             bg={"white"}
