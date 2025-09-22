@@ -6,17 +6,11 @@ import {
   Table,
   Text,
 } from "@chakra-ui/react";
-import {
-  ArrowLeft,
-  ArrowLeft2,
-  ArrowRight,
-  ArrowRight2,
-} from "iconsax-reactjs";
+import { ArrowLeft2, ArrowRight2 } from "iconsax-reactjs";
 import { useMemo, useState } from "react";
 import { fc } from "./snippet";
-import { CustomInput } from "./input";
-import RoundedSelect from "./select";
 import { SelectOption } from "../types";
+import RoundedSelect from "./select";
 
 type Column<T> = {
   key: keyof T | string;

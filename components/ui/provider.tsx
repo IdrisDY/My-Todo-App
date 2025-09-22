@@ -3,41 +3,12 @@
 import {
   ChakraProvider,
   defineConfig,
-  defaultSystem,
   createSystem,
   defaultConfig,
 } from "@chakra-ui/react";
-import { ColorModeProvider, type ColorModeProviderProps } from "./color-mode";
 import { jakartaSans } from "@/app/layout";
 
 export function Provider({ children }: { children: React.ReactNode }) {
-  const colors = {
-    brand: {
-      50: "#e3f2ff",
-      100: "#b3daff",
-      200: "#81c2ff",
-      300: "#4eaaff",
-      400: "#1a92ff",
-      500: "#0077e6",
-      600: "#005bb4",
-      700: "#004182",
-      800: "#002651",
-      900: "#000c21",
-    },
-    secondary: {
-      50: "#fff1e6",
-      100: "#ffd3b8",
-      200: "#ffb48a",
-      300: "#ff955b",
-      400: "#ff7630",
-      500: "#e65c16", // secondary
-      600: "#b4480f",
-      700: "#823409",
-      800: "#511f03",
-      900: "#210a00",
-    },
-  };
-
   const config = defineConfig({
     theme: {
       semanticTokens: {
