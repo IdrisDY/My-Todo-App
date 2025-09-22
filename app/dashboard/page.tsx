@@ -19,8 +19,9 @@ const Dashboard = () => {
   const {
     todoState: { filtered },
     dispatch,
+    activeTab,
+    setActiveTab,
   } = useTodos() as TodoContextType;
-  const [activeTab, setActiveTab] = useState<TodoStatus>("todo");
   const [search, setSearch] = useState("");
   const columns = [
     {

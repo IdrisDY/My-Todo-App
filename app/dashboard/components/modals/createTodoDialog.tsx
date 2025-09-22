@@ -25,8 +25,8 @@ const emptyForm: Todo & { description: string } = {
 };
 export const CreateTaskDialog = ({
   triggerDialogComponent,
-  open,
   onOpenChange,
+  open,
   initialData,
 }: {
   open?: boolean;
@@ -34,6 +34,10 @@ export const CreateTaskDialog = ({
   initialData?: Todo;
   triggerDialogComponent?: React.ReactNode;
 }) => {
+  const [internalOpen, setInternalOpen] = useState(false);
+  const isControlled = open !== undefined;
+  const dialogOpen = isControlled ? open : internalOpen;
+  const { setActiveTab } = useTodos();
   const [form, setForm] = useState<Todo & { description?: string }>({
     name: "",
     date: "",
@@ -78,6 +82,8 @@ export const CreateTaskDialog = ({
         },
       });
     }
+    setActiveTab(form.status);
+
     setForm({
       name: "",
       date: "",
@@ -85,13 +91,19 @@ export const CreateTaskDialog = ({
       priority: "Medium",
       status: "todo",
     });
-    onOpenChange?.(false);
+    setInternalOpen(false);
   };
 
   return (
     <CustomDialog
-      open={open}
-      onOpenChange={(details) => onOpenChange?.(details.open)}
+      open={dialogOpen as boolean}
+      onOpenChange={(details) => {
+        if (isControlled) {
+          onOpenChange?.(details.open);
+        } else {
+          setInternalOpen(details.open);
+        }
+      }}
       triggerComponent={triggerDialogComponent}
       footer={
         <CustomButton

@@ -1,5 +1,11 @@
 "use client";
-import React, { createContext, useReducer, useContext, useEffect } from "react";
+import React, {
+  createContext,
+  useReducer,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { Todo, TodoStatus } from "../dashboard/components/types";
 
 type Action =
@@ -88,9 +94,12 @@ const todoReducer = (state: State, action: Action): State => {
 
     case "ADD": {
       const newTodos = [...state.todos, action.payload];
+      const newFiltered = newTodos.filter(
+        (t) => t.status === action.payload.status
+      );
       return {
         todos: newTodos,
-        filtered: newTodos,
+        filtered: newFiltered,
       };
     }
 
@@ -145,6 +154,8 @@ const todoReducer = (state: State, action: Action): State => {
 export type TodoContextType = {
   todoState: State;
   dispatch: React.Dispatch<Action>;
+  activeTab: Todo["status"];
+  setActiveTab: (tab: Todo["status"]) => void;
 };
 
 const TodoContext = createContext<TodoContextType | undefined>(undefined);
@@ -154,6 +165,7 @@ export const TodoProvider = ({ children }: { children: React.ReactNode }) => {
     todos: [],
     filtered: [],
   });
+  const [activeTab, setActiveTab] = useState("todo" as Todo["status"]);
 
   // gets froms torage
   useEffect(() => {
@@ -179,7 +191,9 @@ export const TodoProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, [todoState.todos]);
   return (
-    <TodoContext.Provider value={{ todoState, dispatch }}>
+    <TodoContext.Provider
+      value={{ activeTab, setActiveTab, todoState, dispatch }}
+    >
       {children}
     </TodoContext.Provider>
   );

@@ -24,7 +24,6 @@ const CreateTaskDialogTrigger = ({
         assignee: [],
         priority: "Medium",
       }}
-      open={open}
       onOpenChange={onOpenChange}
       triggerDialogComponent={
         <HStack
