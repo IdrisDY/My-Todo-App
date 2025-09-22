@@ -15,7 +15,6 @@ const CustomInput: FC<CustomInputProps & (InputProps | TextareaProps)> = ({
   variant = "default",
   placeholder,
   startIcon,
-  endIcon,
   rows = 4,
   ...props
 }) => {

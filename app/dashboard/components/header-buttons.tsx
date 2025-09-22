@@ -1,6 +1,6 @@
 import CustomButton from "@/components/ui/button";
 import CustomIconButton from "@/components/ui/icon-button";
-import { Box, HStack, Stack } from "@chakra-ui/react";
+import {  HStack, Stack } from "@chakra-ui/react";
 import {
   AddCircle,
   Calendar,

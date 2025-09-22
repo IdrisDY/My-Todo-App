@@ -1,5 +1,5 @@
-import { Box, Menu, Button, HStack, Text, Icon } from "@chakra-ui/react";
-import { MouseEventHandler, useEffect, useState } from "react";
+import { Box, Menu, HStack, Icon } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { statusTabs } from "../common/tabs";
 import StatusItem from "../status-item";
 import { Check } from "iconsax-reactjs";

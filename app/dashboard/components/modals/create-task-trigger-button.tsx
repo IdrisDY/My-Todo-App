@@ -1,5 +1,5 @@
-import { Box, HStack, Text } from "@chakra-ui/react";
-import { Add, Box1 } from "iconsax-reactjs";
+import { HStack, Text } from "@chakra-ui/react";
+import { Add } from "iconsax-reactjs";
 import React from "react";
 import { CreateTaskDialog } from "./createTodoDialog";
 import { Todo } from "../types";

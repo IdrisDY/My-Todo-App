@@ -5,14 +5,9 @@ import { Calendar, ProfileCircle } from "iconsax-reactjs";
 import AvatarCircles from "./avatar-circles";
 import PriorityItem from "./priority-item";
 import { TodoContextType, useTodos } from "@/app/contexts/todoContext";
-import TodoMenu from "./todo-menu";
 import { fc } from "@/components/ui/snippet";
 
 const GridItem: FC<{ item: Todo }> = ({ item }) => {
-  const onEdit = () => {};
-  const onDelete = () => {
-    dispatch({ type: "DELETE", payload: { id: item.id as number } });
-  };
   const { dispatch } = useTodos() as TodoContextType;
   return (
     <VStack

@@ -1,4 +1,4 @@
-import { Box, Menu, Button, HStack, Text, Icon } from "@chakra-ui/react";
+import { Box, Menu, Button, HStack, Icon } from "@chakra-ui/react";
 import { useState } from "react";
 import { Check } from "iconsax-reactjs";
 import PriorityItem from "../priority-item";

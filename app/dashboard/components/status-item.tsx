@@ -1,12 +1,10 @@
 import { StatusItemProps } from "@/components/types";
 import { fc } from "@/components/ui/snippet";
-import { Box, HStack, IconButton, Text, VStack } from "@chakra-ui/react";
+import { Box, HStack, Text, VStack } from "@chakra-ui/react";
 import React, { FC, useState } from "react";
 import { Todo, ViewMode } from "./types";
-import { Add } from "iconsax-reactjs";
 import GridItem from "./grid-item";
 import { TodoContextType, useTodos } from "@/app/contexts/todoContext";
-import { CreateTaskDialog } from "./modals/createTodoDialog";
 import CreateTaskDialogTrigger from "./modals/create-task-trigger-button";
 
 const StatusItem: FC<{

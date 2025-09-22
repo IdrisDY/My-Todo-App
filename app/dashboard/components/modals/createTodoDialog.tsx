@@ -2,11 +2,8 @@ import { CustomDialog } from "@/components/ui/dialog";
 import {
   Input,
   Textarea,
-  Stack,
   Fieldset,
   Field,
-  DialogOpenChangeDetails,
-  GridItem,
 } from "@chakra-ui/react";
 import SelectStatus from "../selects/select-status";
 import { useEffect, useState } from "react";
@@ -21,7 +18,6 @@ import {
   ProfileCircle,
   Status,
   Stickynote,
-  User,
 } from "iconsax-reactjs";
 
 const emptyForm: Todo & { description: string } = {

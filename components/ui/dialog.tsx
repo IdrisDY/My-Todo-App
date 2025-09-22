@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   CloseButton,
   Dialog,
   DialogOpenChangeDetails,
