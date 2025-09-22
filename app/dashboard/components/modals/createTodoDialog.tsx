@@ -70,7 +70,7 @@ export const CreateTaskDialog = ({
   const { dispatch } = useTodos() as TodoContextType;
   // handles edit and create task
   const handleSubmit = () => {
-    if (initialData) {
+    if (initialData?.id) {
       dispatch({
         type: "UPDATE",
         payload: {
@@ -108,7 +108,7 @@ export const CreateTaskDialog = ({
           brand="p"
           onClick={handleSubmit}
         >
-          {initialData ? "Edit Task" : "Create Task"}
+          {initialData?.id ? "Edit Task" : "Create Task"}
         </CustomButton>
       }
     >

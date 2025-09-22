@@ -10,7 +10,7 @@ const AvatarCircles = ({ images }: { images: string[] }) => {
           p={".2em"}
           shadow={"sm"}
           size={i == 0 ? "md" : "sm"}
-          key={img}
+          key={i}
         >
           <Avatar.Fallback name={"U"} />
           <Avatar.Image src={img} />

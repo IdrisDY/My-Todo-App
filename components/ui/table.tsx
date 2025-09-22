@@ -12,7 +12,7 @@ import {
   ArrowRight,
   ArrowRight2,
 } from "iconsax-reactjs";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { fc } from "./snippet";
 import { CustomInput } from "./input";
 import RoundedSelect from "./select";
@@ -38,6 +38,7 @@ export function CustomTable<T extends { id: string | number }>({
   size = "sm",
 }: CustomTableProps<T>) {
   const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(5);
   const options: SelectOption[] = [
     {
       label: "5",
@@ -48,6 +49,30 @@ export function CustomTable<T extends { id: string | number }>({
       value: 10,
     },
   ];
+
+  // Calculate pagination data
+  const totalPages = Math.ceil(data.length / pageSize);
+  const startIndex = (page - 1) * pageSize;
+  const endIndex = startIndex + pageSize;
+  const currentPageData = useMemo(
+    () => data.slice(startIndex, endIndex),
+    [data, startIndex, endIndex]
+  );
+
+  const handlePageSizeChange = (newPageSize: number) => {
+    setPageSize(newPageSize);
+    // Reset to page 1 ws
+    setPage(1);
+  };
+
+  const handlePageChange = (newPage: number) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setPage(newPage);
+    }
+  };
+
+  const goToFirstPage = () => setPage(1);
+  const goToLastPage = () => setPage(totalPages);
   return (
     <Box
       borderRadius={"base"}
@@ -81,25 +106,32 @@ export function CustomTable<T extends { id: string | number }>({
               ))}
             </Table.Row>
           </Table.Header>
-
           <Table.Body>
-            {data?.map?.((row) => (
-              <Table.Row key={row.id}>
-                {columns?.map?.((col) => (
-                  <Table.Cell
-                    paddingRight={"2.5em"}
-                    paddingLeft={"1em"}
-                    paddingBlock={"1.75em"}
-                    key={col.key as string}
-                  >
-                    {col.render
-                      ? col.render(row)
-                      : (row[col.key as keyof T] as any)}
-                  </Table.Cell>
-                ))}
+            {currentPageData.length > 0 ? (
+              currentPageData.map((row) => (
+                <Table.Row key={row.id}>
+                  {columns?.map?.((col) => (
+                    <Table.Cell
+                      paddingRight="2.5em"
+                      paddingLeft="1em"
+                      paddingBlock="1.75em"
+                      key={col.key as string}
+                    >
+                      {col.render
+                        ? col.render(row)
+                        : (row[col.key as keyof T] as any)}
+                    </Table.Cell>
+                  ))}
+                </Table.Row>
+              ))
+            ) : (
+              <Table.Row>
+                <Table.Cell colSpan={columns.length} textAlign="center" py="4">
+                  No data available
+                </Table.Cell>
               </Table.Row>
-            ))}
-          </Table.Body>
+            )}
+          </Table.Body>{" "}
         </Table.Root>
       </Table.ScrollArea>
       {/* Pagination Container */}
@@ -122,6 +154,7 @@ export function CustomTable<T extends { id: string | number }>({
         >
           {/* Pagination Buttons */}
           <Pagination.Root
+            onPageChange={(details) => handlePageChange(details.page)}
             w={"full"}
             count={data.length * 5}
             pageSize={5}
@@ -134,7 +167,8 @@ export function CustomTable<T extends { id: string | number }>({
               size="sm"
               wrap="wrap"
             >
-              <IconButton gap={"0"} variant={"ghost"}>
+              {/* Double left arrow icon -go back to first */}
+              <IconButton onClick={goToFirstPage} gap={"0"} variant={"ghost"}>
                 <ArrowLeft2 color="black" />
                 <ArrowLeft2
                   style={{
@@ -149,7 +183,7 @@ export function CustomTable<T extends { id: string | number }>({
                   <ArrowLeft2 color="black" />
                 </IconButton>
               </Pagination.PrevTrigger>
-
+              {/* Pagination Numbers */}
               <Pagination.Items
                 render={(item) => {
                   const isSelected = item.value == page;
@@ -160,7 +194,7 @@ export function CustomTable<T extends { id: string | number }>({
                       color={isSelected ? "white" : "primary"}
                       rounded={"2xl"}
                       variant={{ base: "ghost", _selected: "solid" }}
-                      onClick={() => setPage(item.value)}
+                      onClick={() => handlePageChange(item.value)}
                     >
                       {item.value}
                     </IconButton>
@@ -173,8 +207,8 @@ export function CustomTable<T extends { id: string | number }>({
                   <ArrowRight2 color="black" />
                 </IconButton>
               </Pagination.NextTrigger>
-
-              <IconButton gap={"0"} variant={"ghost"}>
+              {/* Double right arrow - go to last */}
+              <IconButton onClick={goToLastPage} gap={"0"} variant={"ghost"}>
                 <ArrowRight2 color="black" />
                 <ArrowRight2
                   style={{
@@ -198,9 +232,12 @@ export function CustomTable<T extends { id: string | number }>({
         >
           <Text fontWeight={600} whiteSpace={{ base: "wrap", lg: "nowrap" }}>
             {" "}
-            Rows Per Page:
+            Rows Per Page:{pageSize}
           </Text>
-          <RoundedSelect options={options} />
+          <RoundedSelect
+            onChange={(e) => handlePageSizeChange(Number(e.target.value))}
+            options={options}
+          />
         </Box>
       </Box>
     </Box>

@@ -4,7 +4,15 @@ import React from "react";
 import { CreateTaskDialog } from "./createTodoDialog";
 import { Todo } from "../types";
 
-const CreateTaskDialogTrigger = ({ status }: { status: Todo["status"] }) => {
+const CreateTaskDialogTrigger = ({
+  status,
+  open,
+  onOpenChange,
+}: {
+  open: boolean;
+  status: Todo["status"];
+  onOpenChange: (value: boolean) => void;
+}) => {
   return (
     <CreateTaskDialog
       initialData={{
@@ -14,6 +22,8 @@ const CreateTaskDialogTrigger = ({ status }: { status: Todo["status"] }) => {
         assignee: [],
         priority: "Medium",
       }}
+      open={open}
+      onOpenChange={onOpenChange}
       triggerDialogComponent={
         <IconButton variant={"ghost"}>
           <Add />

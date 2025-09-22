@@ -11,7 +11,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         base: "none",
         md: "20% 80%",
       }}
-      minH="100vh"
+      h="100vh"
+      overflow={"hidden"}
     >
       <Box
         as="aside"
@@ -29,6 +30,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         gridColumn={{ md: "2 / 3" }}
         w={{ base: "100%", md: "100%", lg: "100%" }}
         position={"relative"}
+        overflowY={"auto"}
         minH={"100vh"}
       >
         <Topbar />

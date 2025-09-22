@@ -1,7 +1,7 @@
 import { StatusItemProps } from "@/components/types";
 import { fc } from "@/components/ui/snippet";
 import { Box, HStack, IconButton, Text, VStack } from "@chakra-ui/react";
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { Todo, ViewMode } from "./types";
 import { Add } from "iconsax-reactjs";
 import GridItem from "./grid-item";
@@ -17,6 +17,7 @@ const StatusItem: FC<{
   item: StatusItemProps;
 }> = ({ viewMode = "list", isInSelect, item, isActive, onClick }) => {
   const Icon = item?.icon;
+  const [isOpen, setIsOpen] = useState(false);
   const {
     todoState: { filtered },
   } = useTodos() as TodoContextType;
@@ -64,7 +65,11 @@ const StatusItem: FC<{
           </Box>
 
           <Box bg={"white"} borderRadius={"base"} as={"div"}>
-            <CreateTaskDialogTrigger status={item.value} />
+            <CreateTaskDialogTrigger
+              open={isOpen}
+              onOpenChange={(value) => setIsOpen(value)}
+              status={item.value}
+            />
           </Box>
         </HStack>
 
@@ -91,11 +96,11 @@ const StatusItem: FC<{
         borderLeft: "4px solid",
         borderColor: "primary",
       }}
-      w={{ base: "100%",  lg: "200px" }}
+      w={{ base: "100%", lg: "200px" }}
       borderRadius={"base"}
       bg={isActive ? item?.themeColor?.bg : "white"}
       flexWrap={"wrap"}
-      minW={{ base: "30%", md:'100%', lg: "fit-content" }}
+      minW={{ base: "30%", md: "100%", lg: "fit-content" }}
       {...fc}
       padding={".4em"}
       onClick={() => onClick?.(item?.value)}
