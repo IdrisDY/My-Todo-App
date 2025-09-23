@@ -63,7 +63,7 @@ const StatusItem: FC<{
               <Text>({item?.count})</Text>
             </Box>
           </Box>
-          {isList ? <CreateTaskDialogTrigger /> : null}{" "}
+          {<CreateTaskDialogTrigger />}{" "}
         </HStack>
 
         <VStack as={"ul"}>
