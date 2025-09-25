@@ -133,112 +133,114 @@ export function CustomTable<T extends { id: string | number }>({
         </Table.Root>
       </Table.ScrollArea>
       {/* Pagination Container */}
-      <Box
-        {...fc}
-        paddingBottom={"1.5em"}
-        alignItems={{ base: "center", lg: "space-between" }}
-        flexDirection={{ base: "column", lg: "row" }}
-      >
+      {currentPageData.length > 0 && (
         <Box
-          bg="cream"
-          maxW={{ base: "50%", lg: "30%" }}
-          minW={"fit-content"}
-          rounded={"1.85em"}
-          my="1.75em"
-          ml={"1.75em"}
           {...fc}
-          paddingInline="1.25em"
-          paddingBlock={".7em"}
+          paddingBottom={"1.5em"}
+          alignItems={{ base: "center", lg: "space-between" }}
+          flexDirection={{ base: "column", lg: "row" }}
         >
-          {/* Pagination Buttons */}
-          <Pagination.Root
-            onPageChange={(details) => handlePageChange(details.page)}
-            w={"full"}
-            count={data.length * 5}
-            pageSize={5}
-            page={1}
+          <Box
+            bg="cream"
+            maxW={{ base: "50%", lg: "30%" }}
+            minW={"fit-content"}
+            rounded={"1.85em"}
+            my="1.75em"
+            ml={"1.75em"}
+            {...fc}
+            paddingInline="1.25em"
+            paddingBlock={".7em"}
           >
-            <ButtonGroup
-              w="full"
-              justifyContent={"space-between"}
-              variant="ghost"
-              size="sm"
-              wrap="wrap"
+            {/* Pagination Buttons */}
+            <Pagination.Root
+              onPageChange={(details) => handlePageChange(details.page)}
+              w={"full"}
+              count={data.length * 5}
+              pageSize={5}
+              page={1}
             >
-              {/* Double left arrow icon -go back to first */}
-              <IconButton onClick={goToFirstPage} gap={"0"} variant={"ghost"}>
-                <ArrowLeft2 color="black" />
-                <ArrowLeft2
-                  style={{
-                    marginLeft: "-.5em",
-                  }}
-                  color="black"
-                />
-              </IconButton>
-
-              <Pagination.PrevTrigger asChild>
-                <IconButton>
+              <ButtonGroup
+                w="full"
+                justifyContent={"space-between"}
+                variant="ghost"
+                size="sm"
+                wrap="wrap"
+              >
+                {/* Double left arrow icon -go back to first */}
+                <IconButton onClick={goToFirstPage} gap={"0"} variant={"ghost"}>
                   <ArrowLeft2 color="black" />
+                  <ArrowLeft2
+                    style={{
+                      marginLeft: "-.5em",
+                    }}
+                    color="black"
+                  />
                 </IconButton>
-              </Pagination.PrevTrigger>
-              {/* Pagination Numbers */}
-              <Pagination.Items
-                render={(item) => {
-                  const isSelected = item.value == page;
-                  return (
-                    <IconButton
-                      bg={isSelected ? "primary" : "transparent"}
-                      border={isSelected ? "none" : "1px solid"}
-                      color={isSelected ? "white" : "primary"}
-                      rounded={"2xl"}
-                      variant={{ base: "ghost", _selected: "solid" }}
-                      onClick={() => handlePageChange(item.value)}
-                    >
-                      {item.value}
-                    </IconButton>
-                  );
-                }}
-              />
 
-              <Pagination.NextTrigger asChild>
-                <IconButton>
-                  <ArrowRight2 color="black" />
-                </IconButton>
-              </Pagination.NextTrigger>
-              {/* Double right arrow - go to last */}
-              <IconButton onClick={goToLastPage} gap={"0"} variant={"ghost"}>
-                <ArrowRight2 color="black" />
-                <ArrowRight2
-                  style={{
-                    marginLeft: "-.5em",
+                <Pagination.PrevTrigger asChild>
+                  <IconButton>
+                    <ArrowLeft2 color="black" />
+                  </IconButton>
+                </Pagination.PrevTrigger>
+                {/* Pagination Numbers */}
+                <Pagination.Items
+                  render={(item) => {
+                    const isSelected = item.value == page;
+                    return (
+                      <IconButton
+                        bg={isSelected ? "primary" : "transparent"}
+                        border={isSelected ? "none" : "1px solid"}
+                        color={isSelected ? "white" : "primary"}
+                        rounded={"2xl"}
+                        variant={{ base: "ghost", _selected: "solid" }}
+                        onClick={() => handlePageChange(item.value)}
+                      >
+                        {item.value}
+                      </IconButton>
+                    );
                   }}
-                  color="black"
                 />
-              </IconButton>
-            </ButtonGroup>
-          </Pagination.Root>
-        </Box>
-        {/* Rows Per Page */}
 
-        {/*Page per size  */}
-        <Box
-          display="flex"
-          gap=".7em"
-          paddingInline={"1em"}
-          justifyContent={"center"}
-          alignItems={"center"}
-          minW={{ base: "100%", lg: "30%" }}
-        >
-          <Text fontWeight={600} whiteSpace={{ base: "wrap", lg: "nowrap" }}>
-            {" "}
-            Rows Per Page:{pageSize}
-          </Text>
-          <RoundedSelect
-            onChange={(e) => handlePageSizeChange(Number(e.target.value))}
-            options={options}
-          />
+                <Pagination.NextTrigger asChild>
+                  <IconButton>
+                    <ArrowRight2 color="black" />
+                  </IconButton>
+                </Pagination.NextTrigger>
+                {/* Double right arrow - go to last */}
+                <IconButton onClick={goToLastPage} gap={"0"} variant={"ghost"}>
+                  <ArrowRight2 color="black" />
+                  <ArrowRight2
+                    style={{
+                      marginLeft: "-.5em",
+                    }}
+                    color="black"
+                  />
+                </IconButton>
+              </ButtonGroup>
+            </Pagination.Root>
+          </Box>
+          {/* Rows Per Page */}
+
+          {/*Page per size  */}
+          <Box
+            display="flex"
+            gap=".7em"
+            paddingInline={"1em"}
+            justifyContent={"center"}
+            alignItems={"center"}
+            minW={{ base: "100%", lg: "30%" }}
+          >
+            <Text fontWeight={600} whiteSpace={{ base: "wrap", lg: "nowrap" }}>
+              {" "}
+              Rows Per Page:{pageSize}
+            </Text>
+            <RoundedSelect
+              onChange={(e) => handlePageSizeChange(Number(e.target.value))}
+              options={options}
+            />
+          </Box>
         </Box>
-      </Box>
+      )}{" "}
     </Box>
   );
 }
