@@ -13,10 +13,14 @@ const PriorityItem: FC<{
   todo?: Todo;
   showMoreButton?: boolean;
 }> = ({ todo, text, showMoreButton = true }) => {
+  const { dispatch, setActiveTab } = useTodos() as TodoContextType;
   const onDelete = () => {
-    dispatch({ type: "DELETE", payload: { id: todo?.id as number, status:todo?.status } });
+    dispatch({
+      type: "DELETE",
+      payload: { id: todo?.id as number, status: todo?.status },
+    });
+    setActiveTab(todo?.status);
   };
-  const { dispatch } = useTodos() as TodoContextType;
   const changeStatus = (status: Todo["status"]) => {
     dispatch({
       type: "CHANGE_STATUS",

@@ -22,6 +22,7 @@ const Dashboard = () => {
     activeTab,
     setActiveTab,
   } = useTodos() as TodoContextType;
+  console.log(activeTab);
   const [search, setSearch] = useState("");
   const columns = [
     {
@@ -46,6 +47,7 @@ const Dashboard = () => {
     },
   ];
   const [viewMode, setViewMode] = useState<ViewMode>("list");
+  const data = filtered.filter((item) => item.status === activeTab);
   const dispatchSearch = (query?: string, status?: Todo["status"]) => {
     dispatch({
       type: "SEARCH",
@@ -169,7 +171,7 @@ const Dashboard = () => {
         {/* Table Section */}
         {viewMode === "list" && (
           <Box as={"section"}>
-            <CustomTable columns={columns} data={filtered} />
+            <CustomTable columns={columns} data={data} />
           </Box>
         )}{" "}
       </VStack>

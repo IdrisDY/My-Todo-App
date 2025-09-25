@@ -19,7 +19,8 @@ const StatusItem: FC<{
   const {
     todoState: { todos, filtered },
   } = useTodos() as TodoContextType;
-  const todoItems = filtered?.filter?.((todo) => todo.status == item?.value);
+  const itemToUse  = viewMode === 'list' ? filtered :todos 
+  const todoItems = itemToUse?.filter?.((todo) => todo.status == item?.value);
   const baseFilteredByStatusTodos = todos.filter(
     (todo) => todo.status == item?.value
   );
