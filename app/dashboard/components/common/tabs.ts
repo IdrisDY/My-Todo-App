@@ -27,7 +27,7 @@ export const statusTabs: statusTabs[] = [
   {
     icon: TickCircle,
     themeColor: completed,
-    text: "Complete",
+    text: "Completed",
     value: "completed",
     count: 20,
     color: "#E9F5F7",
